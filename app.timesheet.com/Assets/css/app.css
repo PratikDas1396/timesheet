@@ -1,0 +1,15 @@
+﻿.dt-bootstrap4:first-child{
+    padding : 0.3rem;
+}
+
+
+/*Global modal close button*/
+
+.global-modal-close {
+    position: absolute;
+    float: right;
+    top: 2%;
+    right: 2%;
+    color: #293042;
+    font-size: 45px;
+}

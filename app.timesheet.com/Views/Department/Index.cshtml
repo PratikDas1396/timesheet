@@ -1,0 +1,44 @@
+﻿@model app.timesheet.com.DepartmentViewModel
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 d-flex" id="divList">
+                @{
+                    Html.RenderPartial("_List", Model.DepartmentList);
+                }
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+@section Scripts {
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+
+    @*<script type="text/javascript">
+            $(document).ready(function () {
+                debugger;
+                $("#btnAddDepartment").on('click', function () {
+                    OpenGlobalPopup("@Url.Content("~/Department/Add")")
+                })
+            });
+        </script>*@
+
+
+    <script>
+        $(document).ready(function () {
+            debugger;
+            $(document).on("click", ".global-modal-close", function () {
+                const view = "@Url.Content("~/Department/List")";
+                $("#divList").load(view)
+            })
+        });
+    </script>
+}
