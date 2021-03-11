@@ -1,0 +1,108 @@
+﻿@model IEnumerable<db.timesheet.com.Task>
+
+<div class="card flex-fill">
+    <div class="card-header border-bottom">
+        <div class="card-actions float-right  ">
+            <button class="btn btn-outline-primary shadow-sm" id="btnAddEntity">
+                <i class="fa fa-plus cursor-pointer" title="Add Task"></i>
+            </button>
+        </div>
+        <h5 class="card-title mb-0">Tasks</h5>
+    </div>
+    <div id="datatables-dashboard" class="card-body px-0">
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="dataTable table table-striped custom-datatables" id="Tasklist">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TaskCode)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TaskDescription)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CreatedBy)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CreatedDtim)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UpdatedBy)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UpdatedDtim)
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
+                    </thead>
+                    @if (Model == null || Model?.Count() == 0) {
+                        <tbody>
+                            <tr>
+                                <td colspan="7"> No Record Found </td>
+                            </tr>
+                        </tbody>
+                    }
+                    else {
+                        <tbody>
+                            @foreach (var item in Model) {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TaskCode)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TaskDescription)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreatedBy)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreatedDtim)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UpdatedBy)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UpdatedDtim)
+                                    </td>
+                                    <td>
+                                        <a href="javascript:void(0)" id="btnEditTask" onclick="EditTask('@item.ID')" data-id="@item.ID">
+                                            <i class="fa fa-pen cursor-pointer" title="edit"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.custom-datatables').DataTable();
+
+        $("#btnAddTask").off("click");
+        $("#btnEditTask").off("click");
+
+        $("#btnAddEntity").on('click', function () {
+            OpenGlobalPopup("@Url.Content("~/Task/Add")")
+        })
+
+        @*$("#btnEditTask").on('click', function (e) {
+            const id = $(this).data("id");
+            const editUrl = "@Url.Content("~/Task/Update")"  + "/" + id;
+            OpenGlobalPopup(editUrl)
+        })*@
+
+    })
+
+    function EditTask(id) {
+        
+            const editUrl = "@Url.Content("~/Task/Edit")?id=" + id;
+            OpenGlobalPopup(editUrl)
+    }
+</script>

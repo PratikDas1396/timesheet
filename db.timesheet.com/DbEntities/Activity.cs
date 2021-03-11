@@ -9,17 +9,23 @@ namespace db.timesheet.com
 {
     public class Activity
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int RecId { get; set; }
+
         [Key]
         public Guid ID { get; set; }
+
+        [Required]
+        public Guid CustomerProductMappingID { get; set; }
+
+        [Required]
+        public Guid DepartmentID { get; set; }
 
         [Required]
         public string ActivityCode { get; set; }
 
         [Required]
         public string ActivityName { get; set; }
-
-        [Required]
-        public CustomerProductMapping customerProductMapping { get; set; }
 
         [Required]
         public string CreatedBy { get; set; }
@@ -30,5 +36,9 @@ namespace db.timesheet.com
         public string UpdatedBy { get; set; }
 
         public DateTime? UpdatedDtim { get; set; }
+
+        //Navigation Property
+        public CustomerProductMapping CustomerProductMapping { get; set; }
+        public Department Department { get; set; }
     }
 }

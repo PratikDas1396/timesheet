@@ -2,11 +2,19 @@
 
 // Window Load
 $(document).ready(function () {
-
+    $.fn.select2.defaults.set("theme", "bootstrap4");
     //Define DataTable.
-    $('.custom-datatables').DataTable();
+    //$('.custom-datatables').DataTable();
+
+
+    $('#GlobalPopup').on('hidden.bs.modal', function (event) {
+        $('#GlobalPopup').modal('hide');
+        $('#GlobalPopupBody').html('');
+    })
+    
 
     $(document).on('click', '.global-modal-close', function () {
+        
         $('#GlobalPopup').modal('hide');
         $('#GlobalPopupBody').html('');
     })
@@ -48,7 +56,7 @@ function OpenGlobalPopup(viewUrl) {
 
 //Customer Add - Update
 function SaveCustomerDetails(data, callback) {
-    debugger;
+    
     const model = ConvertToJson(data);
     $.ajax({
         type: "POST",
@@ -66,7 +74,7 @@ function SaveCustomerDetails(data, callback) {
 }
 
 function UpdateCustomerDetails(ID, data, callback) {
-    debugger;
+    
     let model = ConvertToJson(data);
     model["ID"] = ID;
     $.ajax({
@@ -87,7 +95,7 @@ function UpdateCustomerDetails(ID, data, callback) {
 
 //Product Add - Update
 function SaveProductDetails(data, callback) {
-    debugger;
+    
     const model = ConvertToJson(data);
     $.ajax({
         type: "POST",
@@ -105,7 +113,7 @@ function SaveProductDetails(data, callback) {
 }
 
 function UpdateProductDetails(ID, data, callback) {
-    debugger;
+    
     let model = ConvertToJson(data);
     model["ID"] = ID;
     $.ajax({
@@ -126,7 +134,7 @@ function UpdateProductDetails(ID, data, callback) {
 
 // Department Add - Update
 function SaveDepartmentDetails(data, callback) {
-    debugger;
+    
     const model = ConvertToJson(data);
     $.ajax({
         type: "POST",
@@ -144,7 +152,7 @@ function SaveDepartmentDetails(data, callback) {
 }
 
 function UpdateDepartmentDetails(ID, data, callback) {
-    debugger;
+    
     let model = ConvertToJson(data);
     model["ID"] = ID;
     $.ajax({
@@ -164,7 +172,7 @@ function UpdateDepartmentDetails(ID, data, callback) {
 
 // Designation Add - Update
 function SaveDesignationDetails(data, callback) {
-    debugger;
+    
     const model = ConvertToJson(data);
     $.ajax({
         type: "POST",
@@ -182,12 +190,128 @@ function SaveDesignationDetails(data, callback) {
 }
 
 function UpdateDesignationDetails(ID, data, callback) {
-    debugger;
+    
     let model = ConvertToJson(data);
     model["ID"] = ID;
     $.ajax({
         type: "POST",
         url: "Designation/Update",
+        contentType: "application/json; charset=utf-8",
+        datatype: "json",
+        data: JSON.stringify(model),
+        success: function (data) {
+            callback(data)
+        },
+        error: function () {
+            getNotifier().error("Something Went Wrong");
+        }
+    });
+}
+
+
+// CustomerProductMapping Add - Update
+function SaveCustomerProductMappingDetails(data, callback) {
+    
+    const model = ConvertToJson(data);
+    $.ajax({
+        type: "POST",
+        url: "CustomerProductMapping/Save",
+        contentType: "application/json; charset=utf-8",
+        datatype: "json",
+        data: JSON.stringify(model),
+        success: function (data) {
+            callback(data)
+        },
+        error: function () {
+            getNotifier().error("Something Went Wrong");
+        }
+    });
+}
+
+function UpdateCustomerProductMappingDetails(ID, data, callback) {
+    
+    let model = ConvertToJson(data);
+    model["ID"] = ID;
+    $.ajax({
+        type: "POST",
+        url: "CustomerProductMapping/Update",
+        contentType: "application/json; charset=utf-8",
+        datatype: "json",
+        data: JSON.stringify(model),
+        success: function (data) {
+            callback(data)
+        },
+        error: function () {
+            getNotifier().error("Something Went Wrong");
+        }
+    });
+}
+
+
+// Task Add - Update
+function SaveTaskDetails(data, callback) {
+    
+    const model = ConvertToJson(data);
+    $.ajax({
+        type: "POST",
+        url: "Task/Save",
+        contentType: "application/json; charset=utf-8",
+        datatype: "json",
+        data: JSON.stringify(model),
+        success: function (data) {
+            callback(data)
+        },
+        error: function () {
+            getNotifier().error("Something Went Wrong");
+        }
+    });
+}
+
+function UpdateTaskDetails(ID, data, callback) {
+    
+    let model = ConvertToJson(data);
+    model["ID"] = ID;
+    $.ajax({
+        type: "POST",
+        url: "Task/Update",
+        contentType: "application/json; charset=utf-8",
+        datatype: "json",
+        data: JSON.stringify(model),
+        success: function (data) {
+            callback(data)
+        },
+        error: function () {
+            getNotifier().error("Something Went Wrong");
+        }
+    });
+}
+ 
+// Activity Add - Update
+function SaveActivityDetails(data, callback) {
+    
+    const model = ConvertToJson(data);
+    $.ajax({
+        type: "POST",
+        url: "Activity/Save",
+        contentType: "application/json; charset=utf-8",
+        datatype: "json",
+        data: JSON.stringify(model),
+        success: function (data) {
+            callback(data)
+        },
+        error: function () {
+            getNotifier().error("Something Went Wrong");
+        }
+    });
+}
+
+function UpdateActivityDetails(ID, data, callback) {
+    
+    let model = ConvertToJson(data);
+    model["ID"] = ID;
+    $.ajax({
+        type: "POST",
+        url: "Activity/Update",
         contentType: "application/json; charset=utf-8",
         datatype: "json",
         data: JSON.stringify(model),

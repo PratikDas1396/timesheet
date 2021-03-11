@@ -1,4 +1,5 @@
 ﻿using db.timesheet.com;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace repository.timesheet.com {
@@ -13,6 +14,18 @@ namespace repository.timesheet.com {
         public Department GetDepartmentByName(string DepartmentName) {
             return context.Department.FirstOrDefault(x => x.DepartmentName == DepartmentName);
         }
+
+        public IList<DropdownKeyValue> GetDropdown() {
+            List<DropdownKeyValue> dropdown = new List<DropdownKeyValue>();
+
+            dropdown = context.Department.Select(x => new DropdownKeyValue() {
+                ParamText = x.DepartmentName,
+                ParamValue = x.ID.ToString()
+            }).ToList();
+
+            return dropdown;
+        }
+
 
         public override bool Equals(object obj) {
             return base.Equals(obj);

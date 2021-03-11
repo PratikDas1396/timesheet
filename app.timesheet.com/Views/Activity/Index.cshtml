@@ -1,0 +1,32 @@
+﻿@model app.timesheet.com.ActivityViewModel
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 d-flex" id="divList">
+                @{
+                    Html.RenderPartial("_List", Model.ActivityList);
+                }
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            
+            $(document).on("click", ".global-modal-close", function () {
+                const view = "@Url.Content("~/Activity/List")";
+                $("#divList").load(view)
+            })
+        });
+    </script>
+}

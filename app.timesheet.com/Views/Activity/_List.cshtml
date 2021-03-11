@@ -1,0 +1,122 @@
+﻿@model IEnumerable<db.timesheet.com.Activity>
+
+<div class="card flex-fill">
+    <div class="card-header border-bottom">
+        <div class="card-actions float-right  ">
+            <button class="btn btn-outline-primary shadow-sm" id="btnAddEntity">
+                <i class="fa fa-plus cursor-pointer" title="Add Activity"></i>
+            </button>
+        </div>
+        <h5 class="card-title mb-0">Activities</h5>
+    </div>
+    <div id="datatables-dashboard" class="card-body">
+        <div class="row">
+            <div class="col-sm-12 px-0">
+                <table class="dataTable table table-striped custom-datatables" id="Activitylist">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Department)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CustomerProductMapping)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ActivityCode)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ActivityName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CreatedBy)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CreatedDtim)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UpdatedBy)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UpdatedDtim)
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
+                    </thead>
+                    @if (Model == null || Model?.Count() == 0) {
+                        <tbody>
+                            <tr>
+                                <td colspan="7"> No Record Found </td>
+                            </tr>
+                        </tbody>
+                    }
+                    else {
+                        <tbody>
+                            @foreach (var item in Model) {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Department.DepartmentName)
+                                    </td>
+                                    <td>
+                                        @Html.Label(item.CustomerProductMapping.Customer.CustomerName + " - " + item.CustomerProductMapping.Product.ProductName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ActivityCode)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ActivityName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreatedBy)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreatedDtim)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UpdatedBy)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UpdatedDtim)
+                                    </td>
+                                    <td>
+                                        <a href="javascript:void(0)" id="btnEditActivity" onclick="EditActivity('@item.ID')" data-id="@item.ID">
+                                            <i class="fa fa-pen cursor-pointer" title="edit"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.custom-datatables').DataTable({
+            responsive: true
+        });
+
+        $("#btnAddActivity").off("click");
+        $("#btnEditActivity").off("click");
+
+        $("#btnAddEntity").on('click', function () {
+            OpenGlobalPopup("@Url.Content("~/Activity/Add")")
+        })
+
+        @*$("#btnEditActivity").on('click', function (e) {
+            const id = $(this).data("id");
+            const editUrl = "@Url.Content("~/Activity/Update")"  + "/" + id;
+            OpenGlobalPopup(editUrl)
+        })*@
+
+    })
+
+    function EditActivity(id) {
+        
+            const editUrl = "@Url.Content("~/Activity/Edit")?id=" + id;
+            OpenGlobalPopup(editUrl)
+    }
+</script>

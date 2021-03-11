@@ -9,9 +9,9 @@
         </div>
         <h5 class="card-title mb-0">Customers</h5>
     </div>
-    <div id="datatables-dashboard" class="card-body px-0">
+    <div id="datatables-dashboard" class="card-body">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-12 px-0">
                 <table class="dataTable table table-striped custom-datatables" id="Customerlist">
                     <thead>
                         <tr>
@@ -101,7 +101,7 @@
     })
 
     function EditCustomer(id) {
-        debugger;
+        
             const editUrl = "@Url.Content("~/Customer/Edit")?id=" + id;
             OpenGlobalPopup(editUrl)
     }

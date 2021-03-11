@@ -7,13 +7,13 @@ namespace db.timesheet.com.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class InitialCreate : IMigrationMetadata
+    public sealed partial class ActivityDepartmentMappingone : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ActivityDepartmentMappingone));
         
         string IMigrationMetadata.Id
         {
-            get { return "202103011607116_InitialCreate"; }
+            get { return "202103101554130_Activity-Department Mapping one"; }
         }
         
         string IMigrationMetadata.Source

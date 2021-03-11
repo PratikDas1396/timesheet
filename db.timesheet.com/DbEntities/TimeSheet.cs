@@ -13,7 +13,7 @@ namespace db.timesheet.com
         public Activity ActivityCode { get; set; }
 
         [Required]
-        public Tasks TaskCode { get; set; }
+        public Task TaskCode { get; set; }
 
         [Required]
         [DataType(DataType.Time)]

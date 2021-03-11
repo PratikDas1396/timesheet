@@ -1,9 +1,14 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace db.timesheet.com {
-    public class Tasks
+    public class Task
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int RecId { get; set; }
+
+        [Key]
         public Guid ID { get; set; }
 
         [Required]

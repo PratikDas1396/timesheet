@@ -1,20 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace db.timesheet.com
-{
+namespace db.timesheet.com {
     public class CustomerProductMapping
     {
+        [Key]
+        [Column(Order = 1)]
         public Guid ID { get; set; }
 
-        [Required]
-        public Customer CustomerCode { get; set; }
+        [Column(Order = 2)]
+        public Guid CustomerID { get; set; }
+
+        [Column(Order = 3)]
+        public Guid ProductID { get; set; }
 
         [Required]
-        public Product ProductCode { get; set; }
+        public Customer Customer { get; set; }
+
+        [Required]
+        public Product Product { get; set; }
 
         [Required]
         public string CreatedBy { get; set; }
@@ -25,5 +31,8 @@ namespace db.timesheet.com
         public string UpdatedBy { get; set; }
 
         public DateTime? UpdatedDtim { get; set; }
+
+        //Navigation Property
+        public ICollection<Activity> Activities { get; set; }
     }
 }

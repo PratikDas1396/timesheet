@@ -24,7 +24,7 @@
 
     @*<script type="text/javascript">
             $(document).ready(function () {
-                debugger;
+                
                 $("#btnAddDesignation").on('click', function () {
                     OpenGlobalPopup("@Url.Content("~/Designation/Add")")
                 })
@@ -34,7 +34,7 @@
 
     <script>
         $(document).ready(function () {
-            debugger;
+            
             $(document).on("click", ".global-modal-close", function () {
                 const view = "@Url.Content("~/Designation/List")";
                 $("#divList").load(view)

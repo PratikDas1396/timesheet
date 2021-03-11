@@ -51,9 +51,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\202103011607116_InitialCreate.cs" />
-    <Compile Include="Migrations\202103011607116_InitialCreate.designer.cs">
-      <DependentUpon>202103011607116_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202103091600041_Customer Product mapping.cs" />
+    <Compile Include="Migrations\202103091600041_Customer Product mapping.designer.cs">
+      <DependentUpon>202103091600041_Customer Product mapping.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103101405123_Activity-Product Mapping.cs" />
+    <Compile Include="Migrations\202103101405123_Activity-Product Mapping.designer.cs">
+      <DependentUpon>202103101405123_Activity-Product Mapping.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103101411356_Activity-Product Mapping one.cs" />
+    <Compile Include="Migrations\202103101411356_Activity-Product Mapping one.designer.cs">
+      <DependentUpon>202103101411356_Activity-Product Mapping one.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103101554130_Activity-Department Mapping one.cs" />
+    <Compile Include="Migrations\202103101554130_Activity-Department Mapping one.designer.cs">
+      <DependentUpon>202103101554130_Activity-Department Mapping one.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="TimeSheetDBContext.cs" />
@@ -64,7 +76,7 @@
     <Compile Include="DbEntities\Department.cs" />
     <Compile Include="DbEntities\Designation.cs" />
     <Compile Include="DbEntities\Product.cs" />
-    <Compile Include="DbEntities\Tasks.cs" />
+    <Compile Include="DbEntities\Task.cs" />
     <Compile Include="DbEntities\TimeSheet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -75,8 +87,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202103011607116_InitialCreate.resx">
-      <DependentUpon>202103011607116_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202103091600041_Customer Product mapping.resx">
+      <DependentUpon>202103091600041_Customer Product mapping.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103101405123_Activity-Product Mapping.resx">
+      <DependentUpon>202103101405123_Activity-Product Mapping.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103101411356_Activity-Product Mapping one.resx">
+      <DependentUpon>202103101411356_Activity-Product Mapping one.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103101554130_Activity-Department Mapping one.resx">
+      <DependentUpon>202103101554130_Activity-Department Mapping one.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

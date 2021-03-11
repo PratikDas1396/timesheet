@@ -1,0 +1,108 @@
+﻿@model IEnumerable<db.timesheet.com.CustomerProductMapping>
+
+<div class="card flex-fill">
+    <div class="card-header border-bottom">
+        <div class="card-actions float-right  ">
+            <button class="btn btn-outline-primary shadow-sm" id="btnAddMapping">
+                <i class="fa fa-plus cursor-pointer" title="Add Customer Product Mapping"></i>
+            </button>
+        </div>
+        <h5 class="card-title mb-0">Customer Product Mapping</h5>
+    </div>
+    <div id="datatables-dashboard" class="card-body">
+        <div class="row">
+            <div class="col-sm-12 px-0">
+                <table class="dataTable table table-striped custom-datatables" id="CustomerProductMappinglist">
+                    <thead>
+                        <tr>
+                            <th>
+                                Customer
+                            </th>
+                            <th>
+                                Product
+                            </th>
+                            <th>
+                                Created By
+                            </th>
+                            <th>
+                                Created Date
+                            </th>
+                            <th>
+                                Updated By
+                            </th>
+                            <th>
+                                Updated Date
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
+                    </thead>
+                    @if (Model == null || Model?.Count() == 0) {
+                        <tbody>
+                            <tr>
+                                <td colspan="7"> No Record Found </td>
+                            </tr>
+                        </tbody>
+                    }
+                    else {
+                        <tbody>
+                            @foreach (var item in Model) {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Customer.CustomerName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Product.ProductName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreatedBy)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreatedDtim)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UpdatedBy)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UpdatedDtim)
+                                    </td>
+                                    <td>
+                                        <a href="javascript:void(0)" id="btnEditMapping" onclick="EditCustomer('@item.ID')" data-id="@item.ID">
+                                            <i class="fa fa-pen cursor-pointer" title="edit"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.custom-datatables').DataTable();
+
+        $("#btnAddMapping").off("click");
+        $("#btnEditMapping").off("click");
+
+        $("#btnAddMapping").on('click', function () {
+            OpenGlobalPopup("@Url.Content("~/CustomerProductMapping/Add")")
+        })
+
+        @*$("#btnEditCustomer").on('click', function (e) {
+            const id = $(this).data("id");
+            const editUrl = "@Url.Content("~/Customer/Update")"  + "/" + id;
+            OpenGlobalPopup(editUrl)
+        })*@
+
+    })
+
+    function EditCustomer(id) {
+        
+            const editUrl = "@Url.Content("~/CustomerProductMapping/Edit")?id=" + id;
+            OpenGlobalPopup(editUrl)
+    }
+</script>

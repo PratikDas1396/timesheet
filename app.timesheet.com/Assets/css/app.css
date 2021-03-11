@@ -1,10 +1,45 @@
-﻿.dt-bootstrap4:first-child{
-    padding : 0.3rem;
+﻿html {
+    scroll-behavior: smooth;
 }
 
+/*Scroll bar css*/
+::-webkit-scrollbar {
+    width: 10px;
+}
 
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+
+ /*Gridview Reponsiveness*/
+.dt-bootstrap4:first-child {
+    padding: 0.3rem;
+}
+
+.dt-bootstrap4 > .row:nth-child(2) {
+    margin-bottom: 12px;
+    overflow-x: auto;
+}
+
+    .dt-bootstrap4 > .row:nth-child(2) > div {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+/*Gridview Reponsiveness*/
 /*Global modal close button*/
-
 .global-modal-close {
     position: absolute;
     float: right;
