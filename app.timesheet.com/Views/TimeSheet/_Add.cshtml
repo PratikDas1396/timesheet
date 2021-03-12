@@ -77,6 +77,15 @@
     <script>
 
         $(document).ready(function () {
+
+            $("#btnAction").on("click", function () {
+                const TimeSheetForm = $("#TimeSheetForm");
+                if (TimeSheetForm.valid()) {
+                    SaveActivityDetails(ActivityForm.serialize(), onSuccess);
+                }
+            })
+
+
             $("#ddlMapping").select2();
             $("#ddlTask").select2();
             $("#ddlActivity").select2();
