@@ -91,13 +91,6 @@
         $("#btnAddEntity").on('click', function () {
             OpenGlobalPopup("@Url.Content("~/Task/Add")")
         })
-
-        @*$("#btnEditTask").on('click', function (e) {
-            const id = $(this).data("id");
-            const editUrl = "@Url.Content("~/Task/Update")"  + "/" + id;
-            OpenGlobalPopup(editUrl)
-        })*@
-
     })
 
     function EditTask(id) {

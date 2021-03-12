@@ -7,6 +7,7 @@
         ICustomerProductMappingRepository CustomerProductMapping { get; }
         ITaskRepository Tasks { get; }
         IActivityRepository Activity { get; }
+        ITimeSheetRepository TimeSheet { get; }
 
         int Complete();
     }

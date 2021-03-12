@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Timesheet Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -55,6 +55,9 @@
                                         </li>
                                         <li class="sidebar-item">
                                             @Html.ActionLink("Activity", "Index", new { controller = "Activity" }, new { @class = "nav-link" })
+                                        </li>
+                                        <li class="sidebar-item">
+                                            @Html.ActionLink("TimeSheet", "Index", new { controller = "TimeSheet" }, new { @class = "nav-link" })
                                         </li>
                                         @*<li class="sidebar-item active">
                                                 <a href="#dashboards" data-toggle="collapse" class="sidebar-link">

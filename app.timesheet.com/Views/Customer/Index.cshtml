@@ -2,7 +2,7 @@
 @{
     /**/
 
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Customer";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div>
@@ -15,26 +15,11 @@
             </div>
         </div>
     </div>
-
-
 </div>
 
 @section Scripts {
-    @*@Scripts.Render("~/bundles/jqueryval")*@
-
-    @*<script type="text/javascript">
-            $(document).ready(function () {
-                
-                $("#btnAddCustomer").on('click', function () {
-                    OpenGlobalPopup("@Url.Content("~/Customer/Add")")
-                })
-            });
-        </script>*@
-
-
     <script>
         $(document).ready(function () {
-            
             $(document).on("click", ".global-modal-close", function () {
                 const view = "@Url.Content("~/Customer/List")";
                 $("#divList").load(view)

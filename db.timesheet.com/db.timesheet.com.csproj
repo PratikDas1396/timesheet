@@ -67,6 +67,10 @@
     <Compile Include="Migrations\202103101554130_Activity-Department Mapping one.designer.cs">
       <DependentUpon>202103101554130_Activity-Department Mapping one.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103120430585_timesheet and account table mapping 2.cs" />
+    <Compile Include="Migrations\202103120430585_timesheet and account table mapping 2.designer.cs">
+      <DependentUpon>202103120430585_timesheet and account table mapping 2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="TimeSheetDBContext.cs" />
     <Compile Include="DbEntities\Account.cs" />
@@ -98,6 +102,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103101554130_Activity-Department Mapping one.resx">
       <DependentUpon>202103101554130_Activity-Department Mapping one.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103120430585_timesheet and account table mapping 2.resx">
+      <DependentUpon>202103120430585_timesheet and account table mapping 2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

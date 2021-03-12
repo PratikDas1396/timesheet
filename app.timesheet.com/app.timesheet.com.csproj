@@ -148,6 +148,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
+    <Compile Include="Controllers\TimeSheetController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -159,6 +160,7 @@
     <Compile Include="ViewModels\DesignationViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
     <Compile Include="ViewModels\TaskViewModel.cs" />
+    <Compile Include="ViewModels\TimeSheetViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\css\app.css" />
@@ -238,6 +240,8 @@
     <Content Include="Assets\plugins\Select2\js\select2.full.min.js" />
     <Content Include="Assets\plugins\Select2\js\select2.js" />
     <Content Include="Assets\plugins\Select2\js\select2.min.js" />
+    <Content Include="Assets\plugins\timepicker\jquery.timepicker.min.css" />
+    <Content Include="Assets\plugins\timepicker\jquery.timepicker.min.js" />
     <Content Include="Assets\svg\logo.svg" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -418,6 +422,9 @@
     <Content Include="Views\Activity\_Add.cshtml" />
     <Content Include="Views\Activity\_List.cshtml" />
     <Content Include="Views\Activity\Index.cshtml" />
+    <Content Include="Views\TimeSheet\Index.cshtml" />
+    <Content Include="Views\TimeSheet\_Add.cshtml" />
+    <Content Include="Views\TimeSheet\_List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,4 +1,5 @@
 ﻿using db.timesheet.com;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace repository.timesheet.com {
@@ -13,6 +14,14 @@ namespace repository.timesheet.com {
 
         public Customer GetCustomerByName(string CustomerName) {
             return context.Customer.FirstOrDefault(x => x.CustomerName == CustomerName);
+        }
+
+        public IList<DropdownKeyValue> GetDropdown() {
+            return context.Customer
+                          .Select(x => new DropdownKeyValue() {
+                              ParamText = x.CustomerName,
+                              ParamValue = x.ID.ToString()
+                          }).ToList();
         }
 
         public override bool Equals(object obj) {

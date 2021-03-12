@@ -8,10 +8,11 @@ namespace repository.timesheet.com {
         public ICustomerRepository Customers { get; private set; }
         public IProductRepository Products { get; private set; }
         public IDepartmentRepository Departments { get; private set; }
-        public IDesignationRepository Designations  { get; private set; }
+        public IDesignationRepository Designations { get; private set; }
         public ICustomerProductMappingRepository CustomerProductMapping { get; private set; }
         public ITaskRepository Tasks { get; private set; }
         public IActivityRepository Activity { get; private set; }
+        public ITimeSheetRepository TimeSheet { get; private set; }
 
 
         public UnitOfWork(TimeSheetDBContext _context) {
@@ -26,6 +27,7 @@ namespace repository.timesheet.com {
             CustomerProductMapping = new CustomerProductMappingRepository(_context);
             Tasks = new TaskRepository(_context);
             Activity = new ActivityRepository(_context);
+            TimeSheet = new TimeSheetRepository(_context);
         }
 
         public int Complete() {

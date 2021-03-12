@@ -1,15 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
-namespace db.timesheet.com
-{
+namespace db.timesheet.com {
     public class Account
     {
 
+        [Key]
         public Guid ID { get; set; }
+
+        [Required]
+        public Guid DepartmentID { get; set; }
+
+        [Required]
+        public Guid DesignationID { get; set; }
 
         [Required, MaxLength(200)]
         public string UserName { get; set; }
@@ -20,12 +23,6 @@ namespace db.timesheet.com
         [Required]
         public string UserPin { get; set; }
 
-        //[Required]
-        //public Department Department_Code { get; set; }
-
-        //[Required]
-        //public Designation Designation_Code { get; set; }
-
         [Required]
         public string CreatedBy { get; set; }
 
@@ -35,5 +32,9 @@ namespace db.timesheet.com
         public string UpdatedBy { get; set; }
 
         public DateTime? UpdatedDtim { get; set; }
+
+        //Navigations
+        public Department Department { get; set; }
+        public Designation Designation { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using db.timesheet.com;
+using System.Collections.Generic;
 
 namespace repository.timesheet.com {
     public interface ICustomerRepository : IGenericRepository<Customer> {
@@ -6,5 +7,7 @@ namespace repository.timesheet.com {
         Customer GetCustomerByCode(string CustomerCode);
 
         Customer GetCustomerByName(string CustomerName);
+        
+        IList<DropdownKeyValue> GetDropdown();
     }
 }

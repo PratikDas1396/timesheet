@@ -30,6 +30,14 @@ namespace repository.timesheet.com {
                   .SingleOrDefault();
         }
 
+        public IList<DropdownKeyValue> GetDropdown() {
+            return context.Activity
+                          .Select(x => new DropdownKeyValue() {
+                              ParamText = x.ActivityName,
+                              ParamValue = x.ID.ToString()
+                          }).ToList();
+        }
+
         public override bool Equals(object obj) {
             return base.Equals(obj);
         }

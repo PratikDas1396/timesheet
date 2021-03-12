@@ -1,0 +1,99 @@
+﻿@model app.timesheet.com.TimeSheetViewModel
+@{
+    Html.EnableUnobtrusiveJavaScript();
+}
+
+<div class="card flex-fill w-100">
+    <div class="card-header border-bottom">
+        @*<div class="card-actions float-right  ">
+                <button class="btn btn-link global-modal-close" >
+                    <i class="fas fa-times cursor-pointer" title="Close"></i>
+                </button>
+            </div>*@
+        @{
+            if (Model.Mode == "Add") {
+                <h5 class="card-title mb-0">Add Task Description</h5>
+            }
+            else {
+                <h5 class="card-title mb-0">Edit Task Description</h5>
+            }
+        }
+    </div>
+    <div class="card-body d-flex">
+        <div class="w-100">
+            <form id="TimeSheetForm">
+                <div class="row">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="col-sm-12 form-group">
+                        @Html.LabelFor(model => model.CustomerProductMappingID, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.CustomerProductMappingID, new SelectList(Model.CustomerProductMappingList, "ParamValue", "ParamText")
+                                                        , "Select Customer-Product Mapping", new { @id = "ddlMapping",  @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CustomerProductMappingID, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-sm-12 form-group">
+                        @Html.LabelFor(model => model.TaskID, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.TaskID, new SelectList(Model.TaskList, "ParamValue", "ParamText")
+                                                        , "Select Task", new { @id = "ddlTask",  @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.TaskID, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-sm-12 form-group">
+                        @Html.LabelFor(model => model.ActivityID, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.ActivityID, new SelectList(Model.ActivityList, "ParamValue", "ParamText")
+                                                        , "Select Activity", new { @id = "ddlActivity",  @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ActivityID, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-sm-12 form-group">
+                        @Html.LabelFor(model => model.TaskDescription, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.TaskDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        @Html.ValidationMessageFor(model => model.TaskDescription, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-sm-12 form-group">
+                        @Html.LabelFor(model => model.FromTime, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.FromTime, new { htmlAttributes = new { @class = "form-control timepicker", autocomplete = "off" } })
+                        @Html.ValidationMessageFor(model => model.FromTime, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-sm-12 form-group">
+                        @Html.LabelFor(model => model.ToTime, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.ToTime, new { htmlAttributes = new { @class = "form-control timepicker", autocomplete = "off" } })
+                        @Html.ValidationMessageFor(model => model.ToTime, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-sm-12 form-group">
+                        <input type="button" id="btnAction" value="Save" class="btn btn-outline-primary btn-block rounded-0" />
+                        @*@{
+                                if (Model.Mode == "Add") {
+                                    <input type="button" id="btnAction" value="Save" class="btn btn-outline-primary btn-block rounded-0" />
+                                }
+                                else {
+                                    @Html.HiddenFor(model => model.ID, htmlAttributes: new { @id = "customer-id" });
+                                    <input type="button" id="btnUpdate" value="Update" class="btn btn-outline-primary btn-block rounded-0" />
+                                }
+                            }*@
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        $(document).ready(function () {
+            $("#ddlMapping").select2();
+            $("#ddlTask").select2();
+            $("#ddlActivity").select2();
+
+            $('.timepicker').timepicker({
+                timeFormat: 'h:mm p',
+                interval: 5,
+                minTime: '12:00AM',
+                maxTime: '12:00PM',
+                defaultTime: '0',
+                startTime: '0',
+                dynamic: true,
+                dropdown: true,
+                scrollbar: true
+            });
+        })
+
+    </script>
+</div>
+

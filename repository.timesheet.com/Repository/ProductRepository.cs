@@ -1,4 +1,5 @@
 ﻿using db.timesheet.com;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace repository.timesheet.com {
@@ -14,6 +15,14 @@ namespace repository.timesheet.com {
 
         public Product GetProductByName(string ProductName) {
             return context.Product.FirstOrDefault(x => x.ProductName == ProductName);
+        }
+
+        public IList<DropdownKeyValue> GetDropdown() {
+            return context.Product
+                          .Select(x => new DropdownKeyValue() {
+                              ParamText = x.ProductName,
+                              ParamValue = x.ID.ToString()
+                          }).ToList();
         }
     }
 }

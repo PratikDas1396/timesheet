@@ -23,6 +23,7 @@ namespace app.timesheet.com {
                       "~/assets/plugins/Datatables/datatables.min.js",
                       "~/assets/plugins/notyf/notyf.min.js",
                       "~/assets/plugins/Select2/js/select2.min.js",
+                      "~/assets/plugins/timepicker/jquery.timepicker.min.js",
                       "~/assets/js/app.js"
                       ));
 
@@ -31,6 +32,7 @@ namespace app.timesheet.com {
                       "~/assets/plugins/Datatables/datatables.min.css",
                       "~/assets/plugins/notyf/notyf.min.css",
                       "~/assets/plugins/Select2/css/select2.min.css",
+                      "~/assets/plugins/timepicker/jquery.timepicker.min.css",
                       "~/Content/dark.css",
                       "~/assets/css/app.css"));
         }

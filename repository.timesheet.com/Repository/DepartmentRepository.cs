@@ -16,14 +16,11 @@ namespace repository.timesheet.com {
         }
 
         public IList<DropdownKeyValue> GetDropdown() {
-            List<DropdownKeyValue> dropdown = new List<DropdownKeyValue>();
-
-            dropdown = context.Department.Select(x => new DropdownKeyValue() {
-                ParamText = x.DepartmentName,
-                ParamValue = x.ID.ToString()
-            }).ToList();
-
-            return dropdown;
+            return context.Department 
+                          .Select(x => new DropdownKeyValue() {
+                              ParamText = x.DepartmentName,
+                              ParamValue = x.ID.ToString()
+                          }).ToList();
         }
 
 

@@ -1,6 +1,7 @@
 ﻿using db.timesheet.com;
 using System.Linq;
 using System.Data.Entity;
+using System.Collections.Generic;
 
 namespace repository.timesheet.com {
     public class TaskRepository : GenericRepository<Task>, ITaskRepository {
@@ -14,6 +15,14 @@ namespace repository.timesheet.com {
 
         public Task GetTaskByDescription(string TaskDescription) {
             return context.Tasks.FirstOrDefault(x => x.TaskDescription == TaskDescription);
+        }
+
+        public IList<DropdownKeyValue> GetDropdown() {
+            return context.Tasks
+                          .Select(x => new DropdownKeyValue() {
+                              ParamText = x.TaskDescription,
+                              ParamValue = x.ID.ToString()
+                          }).ToList();
         }
 
         public override bool Equals(object obj) {

@@ -1,0 +1,31 @@
+﻿@model app.timesheet.com.TimeSheetViewModel
+    @{
+        /**/
+
+        ViewBag.Title = "Time Sheet";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    <div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 col-lg-12 d-flex" id="divAddTimesheet">
+                    @{
+                        Html.RenderPartial("_Add", Model);
+                    }
+                </div>
+                <div class="col-md-6 col-lg-12 d-flex" id="divList">
+                    @{
+                        Html.RenderPartial("_List", Model.TimeSheetList);
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts {
+        <script>
+            $(document).ready(function () {
+                
+            });
+        </script>
+    }

@@ -1,6 +1,6 @@
 ﻿@model app.timesheet.com.ProductViewModel
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Product";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div>
@@ -20,7 +20,6 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            
             $(document).on("click", ".global-modal-close", function () {
                 const view = "@Url.Content("~/Product/List")";
                 $("#divList").load(view)
