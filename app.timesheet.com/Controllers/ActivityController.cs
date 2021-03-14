@@ -57,15 +57,8 @@ namespace app.timesheet.com.Controllers
         public ActionResult Save(ActivityViewModel viewModel) {
             try {
                 if (ModelState.IsValid) {
-                    //var Activity = repository.Activity.GetActivityByCode(viewModel.ActivityCode);
-                    //if (Activity != null) {
-                    //    return Json(new ResponseClass<bool>() { isError = true, errorType = ErrorType.Validation, message = "Activity Code Already Exist.", showError = false });
-                    //}
+                    //To do : Add Validation for Activity
 
-                    //Activity = repository.Activity.GetActivityByName(viewModel.ActivityName);
-                    //if (Activity != null) {
-                    //    return Json(new ResponseClass<bool>() { isError = true, errorType = ErrorType.Validation, message = "Activity Name Already Exist.", showError = false });
-                    //}
                 }
                 else {
                     return Json(new ResponseClass<bool>() { isError = true, errorType = ErrorType.Validation, message = "Activity Name and Activity Code is required.", showError = false });

@@ -1,0 +1,125 @@
+﻿@model IEnumerable<db.timesheet.com.Account>
+
+<div class="card flex-fill">
+    <div class="card-header border-bottom">
+        <div class="card-actions float-right  ">
+            <button class="btn btn-outline-primary shadow-sm" id="btnAddEntity">
+                <i class="fa fa-plus cursor-pointer" title="Add User"></i>
+            </button>
+        </div>
+        <h5 class="card-title mb-0">Users</h5>
+    </div>
+    <div id="datatables-dashboard" class="card-body">
+        <div class="row">
+            <div class="col-sm-12 px-0">
+                <table class="dataTable table table-striped custom-datatables" id="Accountlist">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UserName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Department.DepartmentName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Designation.DesignationName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CreatedBy)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CreatedDtim)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UpdatedBy)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UpdatedDtim)
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
+                    </thead>
+                    @if (Model == null || Model?.Count() == 0) {
+                        <tbody>
+                            <tr>
+                                <td colspan="10"> No Record Found </td>
+                            </tr>
+                        </tbody>
+                    }
+                    else {
+                        <tbody>
+                            @foreach (var item in Model) {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UserName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Department.DepartmentName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Designation.DesignationName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreatedBy)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreatedDtim)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UpdatedBy)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UpdatedDtim)
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        <a href="javascript:void(0)" id="btnEditAccount" onclick="EditAccount('@item.ID')" data-id="@item.ID">
+                                            <i class="fa fa-pen cursor-pointer" title="edit"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#btnAddAccount").off("click");
+        $("#btnEditAccount").off("click");
+
+        $("#btnAddEntity").on('click', function () {
+            debugger;
+            OpenGlobalPopup("@Url.Content("~/Account/Add")")
+        })
+
+        @*$("#btnEditAccount").on('click', function (e) {
+            const id = $(this).data("id");
+            const editUrl = "@Url.Content("~/Account/Update")"  + "/" + id;
+            OpenGlobalPopup(editUrl)
+        })*@
+
+        //Define DatePicker
+        $('.custom-datatables').DataTable();
+    })
+
+    function EditAccount(id) {
+
+            const editUrl = "@Url.Content("~/Account/Edit")?id=" + id;
+            OpenGlobalPopup(editUrl)
+    }
+</script>

@@ -38,20 +38,6 @@ namespace repository.timesheet.com {
                           }).ToList();
         }
 
-        public override bool Equals(object obj) {
-            return base.Equals(obj);
-        }
-
-        public override int GetHashCode() {
-            return base.GetHashCode();
-        }
-
-        public override string ToString() {
-            return base.ToString();
-        }
-
-
-
         public TimeSheetDBContext dBContext { get { return context as TimeSheetDBContext; } }
     }
 }

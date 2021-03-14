@@ -13,6 +13,8 @@ namespace repository.timesheet.com {
         public ITaskRepository Tasks { get; private set; }
         public IActivityRepository Activity { get; private set; }
         public ITimeSheetRepository TimeSheet { get; private set; }
+        public IAccountRepository Account { get; private set; }
+
 
 
         public UnitOfWork(TimeSheetDBContext _context) {
@@ -28,6 +30,7 @@ namespace repository.timesheet.com {
             Tasks = new TaskRepository(_context);
             Activity = new ActivityRepository(_context);
             TimeSheet = new TimeSheetRepository(_context);
+            Account = new AccountRepository(_context);
         }
 
         public int Complete() {

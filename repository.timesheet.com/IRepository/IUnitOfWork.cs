@@ -8,6 +8,7 @@
         ITaskRepository Tasks { get; }
         IActivityRepository Activity { get; }
         ITimeSheetRepository TimeSheet { get; }
+        IAccountRepository Account { get; }
 
         int Complete();
     }

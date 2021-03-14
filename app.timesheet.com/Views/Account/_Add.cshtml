@@ -1,0 +1,110 @@
+﻿@model app.timesheet.com.AccountViewModel
+@{
+    Html.EnableUnobtrusiveJavaScript();
+}
+
+<div class="card flex-fill w-100">
+    <div class="card-header border-bottom">
+        @*<div class="card-actions float-right  ">
+                <button class="btn btn-link global-modal-close" >
+                    <i class="fas fa-times cursor-pointer" title="Close"></i>
+                </button>
+            </div>*@
+        @{
+            if (Model.Mode == "Add") {
+                <h5 class="card-title mb-0">Add User</h5>
+            }
+            else {
+                <h5 class="card-title mb-0">Edit User</h5>
+            }
+        }
+    </div>
+    <div class="card-body d-flex">
+        <div class="w-100">
+            <form id="AccountForm">
+                <div class="row">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="col-sm-12 form-group">
+                        @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-sm-12 form-group">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-sm-12 form-group">
+                        @Html.LabelFor(model => model.DepartmentID, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.DepartmentID, new SelectList(Model.DepartmentList, "ParamValue", "ParamText")
+                                                        , "Select Department", new { @id= "ddlDepartment",  @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.DepartmentID, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-sm-12 form-group">
+                        @Html.LabelFor(model => model.DesignationID, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.DesignationID, new SelectList(Model.DesignationList, "ParamValue", "ParamText")
+                                                        , "Select Designation", new { @id= "ddlDesignation",  @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.DesignationID, "", new { @class = "text-danger" })
+                    </div>
+                    @if (Model.Mode == "Add") {
+                        <div class="col-sm-12 form-group">
+                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @type = "password" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    }
+                    <div class="col-sm-12 form-group">
+                        @{
+                            if (Model.Mode == "Add") {
+                                <input type="button" id="btnAction" value="Save" class="btn btn-outline-primary btn-block rounded-0" />
+                            }
+                            else {
+                                @Html.HiddenFor(model => model.ID, htmlAttributes: new { @id = "Account-id" });
+                                <input type="button" id="btnUpdate" value="Update" class="btn btn-outline-primary btn-block rounded-0" />
+                            }
+                        }
+                    </div>
+                </div>
+                @* } *@
+            </form>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        $(document).ready(function () {
+            $("#btnAction").on("click", function () {
+                const AccountForm = $("#AccountForm");
+                if (AccountForm.valid()) {
+                    SaveAccountDetails(AccountForm.serialize(), onSuccess);
+                }
+            })
+
+            $("#btnUpdate").on("click", function () {
+                const AccountForm = $("#AccountForm");
+                const id = $("#Account-id").val();
+                if (AccountForm.valid()) {
+                    UpdateAccountDetails(id, AccountForm.serialize(), onSuccess);
+                }
+            })
+
+            $("#ddlDepartment").select2();
+            $("#ddlDesignation").select2();
+            //$("#ddlMapping").select2();
+        })
+
+        function onSuccess(data) {
+            const notifier = getNotifier();
+            if (data["isError"]) {
+                notifier.error(data["message"]);
+                return;
+            }
+            else {
+                document.getElementById("AccountForm").reset();
+                notifier.success(data["message"]);
+                return;
+            }
+        }
+    </script>
+</div>
+

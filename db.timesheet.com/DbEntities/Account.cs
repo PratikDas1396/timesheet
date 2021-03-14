@@ -18,10 +18,13 @@ namespace db.timesheet.com {
         public string UserName { get; set; }
 
         [Required]
-        public string UserEmail { get; set; }
+        public string Email { get; set; }
 
         [Required]
         public string UserPin { get; set; }
+
+        [Required]
+        public bool IsActive { get; set; }
 
         [Required]
         public string CreatedBy { get; set; }

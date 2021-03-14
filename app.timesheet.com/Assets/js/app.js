@@ -14,7 +14,6 @@ $(document).ready(function () {
     
 
     $(document).on('click', '.global-modal-close', function () {
-        
         $('#GlobalPopup').modal('hide');
         $('#GlobalPopupBody').html('');
     })
@@ -56,7 +55,7 @@ function OpenGlobalPopup(viewUrl) {
 
 //Customer Add - Update
 function SaveCustomerDetails(data, callback) {
-    const model = ConvertToJson(data);
+    const model = ConvertURIToJson(data);
     $.ajax({
         type: "POST",
         url: "Customer/Save",
@@ -73,7 +72,7 @@ function SaveCustomerDetails(data, callback) {
 }
 
 function UpdateCustomerDetails(ID, data, callback) {
-    let model = ConvertToJson(data);
+    let model = ConvertURIToJson(data);
     model["ID"] = ID;
     $.ajax({
         type: "POST",
@@ -93,7 +92,7 @@ function UpdateCustomerDetails(ID, data, callback) {
 
 //Product Add - Update
 function SaveProductDetails(data, callback) {
-    const model = ConvertToJson(data);
+    const model = ConvertURIToJson(data);
     $.ajax({
         type: "POST",
         url: "Product/Save",
@@ -111,7 +110,7 @@ function SaveProductDetails(data, callback) {
 
 function UpdateProductDetails(ID, data, callback) {
     
-    let model = ConvertToJson(data);
+    let model = ConvertURIToJson(data);
     model["ID"] = ID;
     $.ajax({
         type: "POST",
@@ -131,7 +130,7 @@ function UpdateProductDetails(ID, data, callback) {
 
 // Department Add - Update
 function SaveDepartmentDetails(data, callback) {
-    const model = ConvertToJson(data);
+    const model = ConvertURIToJson(data);
     $.ajax({
         type: "POST",
         url: "Department/Save",
@@ -148,7 +147,7 @@ function SaveDepartmentDetails(data, callback) {
 }
 
 function UpdateDepartmentDetails(ID, data, callback) {
-    let model = ConvertToJson(data);
+    let model = ConvertURIToJson(data);
     model["ID"] = ID;
     $.ajax({
         type: "POST",
@@ -167,7 +166,7 @@ function UpdateDepartmentDetails(ID, data, callback) {
 
 // Designation Add - Update
 function SaveDesignationDetails(data, callback) {
-    const model = ConvertToJson(data);
+    const model = ConvertURIToJson(data);
     $.ajax({
         type: "POST",
         url: "Designation/Save",
@@ -184,7 +183,7 @@ function SaveDesignationDetails(data, callback) {
 }
 
 function UpdateDesignationDetails(ID, data, callback) {
-    let model = ConvertToJson(data);
+    let model = ConvertURIToJson(data);
     model["ID"] = ID;
     $.ajax({
         type: "POST",
@@ -205,7 +204,7 @@ function UpdateDesignationDetails(ID, data, callback) {
 // CustomerProductMapping Add - Update
 function SaveCustomerProductMappingDetails(data, callback) {
     
-    const model = ConvertToJson(data);
+    const model = ConvertURIToJson(data);
     $.ajax({
         type: "POST",
         url: "CustomerProductMapping/Save",
@@ -223,7 +222,7 @@ function SaveCustomerProductMappingDetails(data, callback) {
 
 function UpdateCustomerProductMappingDetails(ID, data, callback) {
     
-    let model = ConvertToJson(data);
+    let model = ConvertURIToJson(data);
     model["ID"] = ID;
     $.ajax({
         type: "POST",
@@ -243,7 +242,7 @@ function UpdateCustomerProductMappingDetails(ID, data, callback) {
 
 // Task Add - Update
 function SaveTaskDetails(data, callback) {
-    const model = ConvertToJson(data);
+    const model = ConvertURIToJson(data);
     $.ajax({
         type: "POST",
         url: "Task/Save",
@@ -260,7 +259,7 @@ function SaveTaskDetails(data, callback) {
 }
 
 function UpdateTaskDetails(ID, data, callback) {
-    let model = ConvertToJson(data);
+    let model = ConvertURIToJson(data);
     model["ID"] = ID;
     $.ajax({
         type: "POST",
@@ -279,7 +278,7 @@ function UpdateTaskDetails(ID, data, callback) {
  
 // Activity Add - Update
 function SaveActivityDetails(data, callback) {
-    const model = ConvertToJson(data);
+    const model = ConvertURIToJson(data);
     $.ajax({
         type: "POST",
         url: "Activity/Save",
@@ -296,7 +295,7 @@ function SaveActivityDetails(data, callback) {
 }
 
 function UpdateActivityDetails(ID, data, callback) {
-    let model = ConvertToJson(data);
+    let model = ConvertURIToJson(data);
     model["ID"] = ID;
     $.ajax({
         type: "POST",
@@ -313,9 +312,45 @@ function UpdateActivityDetails(ID, data, callback) {
     });
 }
 
+// Account Add - Update
+function SaveAccountDetails(data, callback) {
+    const model = ConvertURIToJson(data);
+    $.ajax({
+        type: "POST",
+        url: "Account/Save",
+        contentType: "application/json; charset=utf-8",
+        datatype: "json",
+        data: JSON.stringify(model),
+        success: function (data) {
+            callback(data)
+        },
+        error: function () {
+            getNotifier().error("Something Went Wrong");
+        }
+    });
+}
+
+function UpdateAccountDetails(ID, data, callback) {
+    let model = ConvertURIToJson(data);
+    model["ID"] = ID;
+    $.ajax({
+        type: "POST",
+        url: "Account/Update",
+        contentType: "application/json; charset=utf-8",
+        datatype: "json",
+        data: JSON.stringify(model),
+        success: function (data) {
+            callback(data)
+        },
+        error: function () {
+            getNotifier().error("Something Went Wrong");
+        }
+    });
+}
+
 //TimeSheet Add - Update
 function SaveTimeSheetDetails(data, callback) {
-    const model = ConvertToJson(data);
+    const model = ConvertURIToJson(data);
     $.ajax({
         type: "POST",
         url: "TimeSheet/Save",
@@ -331,9 +366,10 @@ function SaveTimeSheetDetails(data, callback) {
     });
 }
 
-function ConvertToJson(data) {
+function ConvertURIToJson(data) {
+    const uri = decodeURIComponent(data)
     let obj = {};
-    data.split('&').map((x, i) => {
+    uri.split('&').map((x, i) => {
         const [key, value] = x.split('=');
         obj[key] = value
     })

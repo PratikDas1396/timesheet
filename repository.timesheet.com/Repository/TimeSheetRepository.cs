@@ -10,16 +10,16 @@ namespace repository.timesheet.com {
         public TimeSheetRepository(TimeSheetDBContext _context) : base(_context) {
         }
 
-        public override bool Equals(object obj) {
-            return base.Equals(obj);
+        public IList<TimeSheet> GetTimeSheets() {
+            throw new NotImplementedException();
         }
 
-        public override int GetHashCode() {
-            return base.GetHashCode();
+        public IList<TimeSheet> GetTimeSheets(Guid EmployeeID, DateTime date) {
+            throw new NotImplementedException();
         }
 
-        public override string ToString() {
-            return base.ToString();
+        public IList<TimeSheet> GetTimeSheets(Guid EmployeeID, DateTime Fromdate, DateTime ToTime) {
+            throw new NotImplementedException();
         }
 
         public TimeSheetDBContext dBContext { get { return context as TimeSheetDBContext; } }

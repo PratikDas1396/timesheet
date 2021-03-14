@@ -71,6 +71,14 @@
     <Compile Include="Migrations\202103120430585_timesheet and account table mapping 2.designer.cs">
       <DependentUpon>202103120430585_timesheet and account table mapping 2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103121357525_add is active flag.cs" />
+    <Compile Include="Migrations\202103121357525_add is active flag.designer.cs">
+      <DependentUpon>202103121357525_add is active flag.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103121423373_renaming col name.cs" />
+    <Compile Include="Migrations\202103121423373_renaming col name.designer.cs">
+      <DependentUpon>202103121423373_renaming col name.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="TimeSheetDBContext.cs" />
     <Compile Include="DbEntities\Account.cs" />
@@ -105,6 +113,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103120430585_timesheet and account table mapping 2.resx">
       <DependentUpon>202103120430585_timesheet and account table mapping 2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103121357525_add is active flag.resx">
+      <DependentUpon>202103121357525_add is active flag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103121423373_renaming col name.resx">
+      <DependentUpon>202103121423373_renaming col name.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
