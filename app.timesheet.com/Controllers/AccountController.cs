@@ -1,9 +1,11 @@
 ﻿using db.timesheet.com;
 using repository.timesheet.com;
 using System;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace app.timesheet.com.Controllers {
     public class AccountController : Controller {
@@ -20,7 +22,7 @@ namespace app.timesheet.com.Controllers {
             });
         }
 
-        public ActionResult Login() => View("Login");
+        public ActionResult Login() => PartialView("Login");
 
         public ActionResult ForgotPassword() => View("Login");
 
@@ -44,6 +46,7 @@ namespace app.timesheet.com.Controllers {
                     ID = account.ID,
                     Email = account.Email,
                     UserName = account.UserName,
+                    UserID = account.UserID,
                     DepartmentList = repository.Departments.GetDropdown().ToList(),
                     DesignationList = repository.Designations.GetDropdown().ToList(),
                     DepartmentID = account.DepartmentID,
@@ -61,18 +64,25 @@ namespace app.timesheet.com.Controllers {
         public ActionResult Save(AccountViewModel viewModel) {
             try {
                 if (ModelState.IsValid) {
-                    //To do : Add Validation for Account
+                    if (repository.Account.CheckUserEmail(viewModel.Email)) {
+                        return Json(new ResponseClass<bool>() { isError = true, errorType = ErrorType.Validation, message = "Email Already Exits.", showError = false });
+                    }
+                    if (repository.Account.CheckUserCode(viewModel.UserID)) {
+                        return Json(new ResponseClass<bool>() { isError = true, errorType = ErrorType.Validation, message = "User Code Already Exits.", showError = false });
+                    }
                 }
                 else {
-                    return Json(new ResponseClass<bool>() { isError = true, errorType = ErrorType.Validation, message = "Customer Name and Customer Code is required.", showError = false });
+                    return Json(new ResponseClass<bool>() { isError = true, errorType = ErrorType.Validation, message = "All fields are required.", showError = false });
                 }
-
+                var key = ConfigurationManager.AppSettings["EncKey"].ToString();
+                var EncryptedPassword = Cryptography.Encryption(viewModel.Password, key);
                 Account c = new Account() {
                     ID = Guid.NewGuid(),
                     DepartmentID = viewModel.DepartmentID,
                     DesignationID = viewModel.DesignationID,
-                    UserPin = viewModel.Password,
+                    UserPin = EncryptedPassword,
                     UserName = viewModel.UserName,
+                    UserID = viewModel.UserID,
                     Email = viewModel.Email,
                     IsActive = true,
                     CreatedBy = "system",
@@ -97,5 +107,26 @@ namespace app.timesheet.com.Controllers {
             }
         }
 
+        public ActionResult Authenticate(LoginViewModel loginView) {
+            if (ModelState.IsValid) {
+                var key = ConfigurationManager.AppSettings["EncKey"].ToString();
+                var EncryptedPassword = Cryptography.Encryption(loginView.UserPin, key);
+                if (repository.Account.Authenticate(loginView.UserID, EncryptedPassword)) {
+                    FormsAuthentication.SetAuthCookie(loginView.UserID, false);
+                    return Json(new ResponseClass<bool>() { isError = false, message = "Authenticate Successful.", showError = false });
+                }
+                else {
+                    return Json(new ResponseClass<bool>() { isError = true, errorType = ErrorType.Validation, message = "invalid User Email and Password", showError = false });
+                }               
+            }
+            else {
+                return Json(new ResponseClass<bool>() { isError = true, errorType = ErrorType.Validation, message = "invalid User Email and Password", showError = false });
+            }
+        }
+
+        public ActionResult SignOut() {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login", "Account");
+        }
     }
 }

@@ -7,6 +7,8 @@ using System.Web.Mvc;
 
 namespace app.timesheet.com.Controllers
 {
+    [Authorize]
+
     public class TaskController : Controller
     {
         private readonly IUnitOfWork repository;

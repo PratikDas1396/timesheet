@@ -1,12 +1,12 @@
 ﻿using db.timesheet.com;
 using repository.timesheet.com;
 using System;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 
 namespace app.timesheet.com.Controllers {
+    [Authorize]
     public class CustomerProductMappingController : Controller {
         private readonly IUnitOfWork repository;
 

@@ -2,16 +2,13 @@
 
 // Window Load
 $(document).ready(function () {
+    //set up bootstrap theme
     $.fn.select2.defaults.set("theme", "bootstrap4");
-    //Define DataTable.
-    //$('.custom-datatables').DataTable();
-
-
+  
     $('#GlobalPopup').on('hidden.bs.modal', function (event) {
         $('#GlobalPopup').modal('hide');
         $('#GlobalPopupBody').html('');
     })
-    
 
     $(document).on('click', '.global-modal-close', function () {
         $('#GlobalPopup').modal('hide');
@@ -19,7 +16,6 @@ $(document).ready(function () {
     })
 
 })
-
 
 function getNotifier() {
     return new Notyf({
@@ -51,7 +47,6 @@ function OpenGlobalPopup(viewUrl) {
         }
     });
 }
-
 
 //Customer Add - Update
 function SaveCustomerDetails(data, callback) {
@@ -88,7 +83,6 @@ function UpdateCustomerDetails(ID, data, callback) {
         }
     });
 }
-
 
 //Product Add - Update
 function SaveProductDetails(data, callback) {
@@ -365,6 +359,26 @@ function SaveTimeSheetDetails(data, callback) {
         }
     });
 }
+
+//User Authenticate
+function Authenticate(data, callback) {
+    const model = ConvertURIToJson(data);
+    $.ajax({
+        type: "POST",
+        url: "Account/Authenticate",
+        contentType: "application/json; charset=utf-8",
+        datatype: "json",
+        data: JSON.stringify(model),
+        success: function (data) {
+            callback(data)
+        },
+        error: function () {
+            getNotifier().error("Something Went Wrong");
+        }
+    });
+}
+
+
 
 function ConvertURIToJson(data) {
     const uri = decodeURIComponent(data)

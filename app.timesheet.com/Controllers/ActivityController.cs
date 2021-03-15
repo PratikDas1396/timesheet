@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace app.timesheet.com.Controllers
 {
+    [Authorize]
     public class ActivityController : Controller
     {
         private readonly IUnitOfWork repository;
@@ -18,7 +19,7 @@ namespace app.timesheet.com.Controllers
         public ActionResult Index() {
             ActivityViewModel Activity = new ActivityViewModel() {
                 ActivityList = repository.Activity.GetActivities().ToList()
-            };
+            };  
             return View(Activity);
         }
 
@@ -58,7 +59,6 @@ namespace app.timesheet.com.Controllers
             try {
                 if (ModelState.IsValid) {
                     //To do : Add Validation for Activity
-
                 }
                 else {
                     return Json(new ResponseClass<bool>() { isError = true, errorType = ErrorType.Validation, message = "Activity Name and Activity Code is required.", showError = false });

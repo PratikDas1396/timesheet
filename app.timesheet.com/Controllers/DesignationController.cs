@@ -8,6 +8,8 @@ using System.Web.Mvc;
 
 namespace app.timesheet.com.Controllers
 {
+    [Authorize]
+
     public class DesignationController : Controller
     {
         private readonly IUnitOfWork repository;

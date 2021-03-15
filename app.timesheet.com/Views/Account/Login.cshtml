@@ -1,4 +1,6 @@
-﻿@{
+﻿@model app.timesheet.com.LoginViewModel
+@{
+    Html.EnableUnobtrusiveJavaScript();
     Layout = "";
 }
 <!DOCTYPE html>
@@ -6,60 +8,132 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Assets/plugins/notyf/notyf.min.css" rel="stylesheet" />
     <link href="~/Content/dark.css" rel="stylesheet" />
     <link href="~/Assets/css/app.css" rel="stylesheet" />
     <title>Sign In</title>
 </head>
 <body>
-    <main class="content d-flex p-0">
-        <div class="container d-flex flex-column">
-            <div class="row h-100">
-                <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
-                    <div class="d-table-cell align-middle">
-                        <div class="text-center mt-4">
-                            <h1 class="h2">Welcome back, Chris</h1>
-                            <p class="lead">
-                                Sign in to your account to continue
-                            </p>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="m-sm-4">
-                                    <div class="text-center">
-                                        <img src="img/avatars/avatar.jpg" alt="Chris Wood" class="img-fluid rounded-circle" width="132" height="132">
-                                    </div>
-                                    <form>
-                                        <div class="form-group">
-                                            <label>Email</label>
-                                            <input class="form-control form-control-lg" type="email" name="email" placeholder="Enter your email">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Password</label>
-                                            <input class="form-control form-control-lg" type="password" name="password" placeholder="Enter your password">
-                                            <small>
-                                                <a href="pages-reset-password.html">Forgot password?</a>
-                                            </small>
-                                        </div>
-                                        <div>
-                                            <div class="custom-control custom-checkbox align-items-center">
-                                                <input type="checkbox" class="custom-control-input" value="remember-me" name="remember-me" checked="">
-                                                <label class="custom-control-label text-small">Remember me next time</label>
+    @*@using (Html.BeginForm("Authenticate", "Account", FormMethod.Post)) {
+        @Html.AntiForgeryToken();*@
+        
+        <main class="content d-flex p-0">
+            <div class="container d-flex flex-column">
+                <div class="row h-100">
+                    <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
+                        <div class="d-table-cell align-middle">
+                            <div class="text-center mt-4">
+                                <h1 class="h1">Welcome</h1>
+                                <p class="lead">
+                                    Sign in to your account to continue
+                                </p>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="m-sm-4">
+                                        <form id="loginForm">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.UserID, htmlAttributes: new { @class = "control-label", @for = "inputEmail" })
+                                                @Html.EditorFor(model => model.UserID, new { htmlAttributes = new { @class = "form-control", id = "inputEmail", autocomplete = "off", autofocus = "true" } })
+                                                @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
                                             </div>
-                                        </div>
-                                        <div class="text-center mt-3">
-                                            <a href="dashboard-default.html" class="btn btn-lg btn-primary">Sign in</a>
-                                            <!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
-                                        </div>
-                                    </form>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.UserPin, htmlAttributes: new { @class = "control-label", @for = "inputPassword" })
+                                                @Html.EditorFor(model => model.UserPin, new { htmlAttributes = new { @class = "form-control", type = "password", id = "inputPassword", autocomplete = "off" } })
+                                                @Html.ValidationMessageFor(model => model.UserPin, "", new { @class = "text-danger" })
+                                                <div>
+                                                    <small>
+                                                        @*<a href="pages-reset-password.html">Forgot password?</a>*@
+                                                        @Html.ActionLink("Forgot password?", "Forget", "Account")
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="custom-control custom-checkbox align-items-center">
+                                                    <input type="checkbox" class="custom-control-input" value="remember-me" name="remember-me">
+                                                    <label class="custom-control-label text-small">Remember me next time</label>
+                                                </div>
+                                            </div>
+                                            <div class="text-center mt-3">
+                                                <input type="button" id="btnAuth" value="Login" class="btn btn-primary btn-block" />
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
+    @*}*@
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Assets/plugins/notyf/notyf.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#btnAuth").on("click", function () {
+                var form = $("#loginForm");
+                if (!form.valid()) {
+                    return;
+                }
+                Authenticate(form.serialize(), onSuccess);
+            });
+        })
+
+        function onSuccess(data) {
+            const notifier = getNotifier();
+            if (data["isError"]) {
+                notifier.error(data["message"]);
+                return;
+            }
+            else {
+                notifier.success(data["message"]);
+                window.location.href = window.location.origin + "/Home/Index";
+            }
+        }
+
+        function Authenticate(data, callback) {
+            const model = ConvertURIToJson(data);
+            $.ajax({
+                type: "POST",
+                url: "Authenticate",
+                contentType: "application/json; charset=utf-8",
+                datatype: "json",
+                data: JSON.stringify(model),
+                success: function (data) {
+                    callback(data)
+                },
+                error: function () {
+                    getNotifier().error("Something Went Wrong");
+                }
+            });
+        }
+
+        function ConvertURIToJson(data) {
+            const uri = decodeURIComponent(data)
+            let obj = {};
+            uri.split('&').map((x, i) => {
+                const [key, value] = x.split('=');
+                obj[key] = value
+            })
+            return obj;
+        }
+
+
+        function getNotifier() {
+            return new Notyf({
+                duration: 4000,
+                dismissible: true,
+                position: {
+                    'x': 'right',
+                    'y': 'top'
+                }
+            });;
+        }
+
+    </script>
 </body>
 </html>

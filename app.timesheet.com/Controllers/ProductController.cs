@@ -6,6 +6,8 @@ using System.Net;
 using System.Web.Mvc;
 
 namespace app.timesheet.com.Controllers {
+    [Authorize]
+
     public class ProductController : Controller {
         private readonly IUnitOfWork repository;
 

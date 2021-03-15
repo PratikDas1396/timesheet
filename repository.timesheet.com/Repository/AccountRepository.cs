@@ -10,9 +10,29 @@ namespace repository.timesheet.com {
         public AccountRepository(TimeSheetDBContext _context) : base(_context) {
         }
 
+        public bool Authenticate(string UserID, string password) {
+            return context.Account.Where(x => x.UserID == UserID && x.UserPin == password).Count() > 0;
+        }
+
+        public bool CheckUserCode(string UserID) {
+            return context.Account.Where(x => x.UserID == UserID).Count() > 0;
+        }
+
+        public bool CheckUserEmail(string Email) {
+            return context.Account.Where(x => x.Email == Email).Count() > 0;
+        }
+
         public Account GetAccount(Guid ID) {
             return context.Account
                           .Where(x => x.ID == ID)
+                          .Include(x => x.Department)
+                          .Include(x => x.Designation)
+                          .FirstOrDefault();
+        }
+
+        public Account GetAccount(string Email) {
+            return context.Account
+                          .Where(x => x.Email == Email)
                           .Include(x => x.Department)
                           .Include(x => x.Designation)
                           .FirstOrDefault();

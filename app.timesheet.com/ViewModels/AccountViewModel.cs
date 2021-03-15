@@ -10,9 +10,13 @@ namespace app.timesheet.com {
 
         public Guid ID { get; set; }
         
-        [Required(ErrorMessage = " Please Enter Name")]
+        [Required(ErrorMessage = "Please Enter Name")]
         [Display(Name = "Name", Description = "Name")]
         public string UserName { get; set; }
+
+        [Required(ErrorMessage = " Please Enter User ID")]
+        [Display(Name = "User ID", Description = "User ID")]
+        public string UserID { get; set; }
 
         [Required(ErrorMessage = " Please Enter Email")]
         [Display(Name = "Email", Description = "Email")]
@@ -21,10 +25,6 @@ namespace app.timesheet.com {
         [Required(ErrorMessage = "Please Enter Password")]
         [Display(Name = "Password", Description = "Password")]
         public string Password { get; set; }
-
-        //[Required(ErrorMessage = "Please Enter Confirm Password")]
-        //[Display(Name = "Confirm Password", Description = "Confirm Password")]
-        //public string ConfirmPassword { get; set; }
 
         [Required(ErrorMessage = "Please Select Department")]
         [Display(Name = "Department", Description = "Department")]

@@ -5,11 +5,10 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 
-namespace app.timesheet.com.Controllers
-{
+namespace app.timesheet.com.Controllers {
+    [Authorize]
     public class DepartmentController : Controller
     {
-
         private readonly IUnitOfWork repository;
 
         public DepartmentController(IUnitOfWork _repository) {

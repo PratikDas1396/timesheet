@@ -17,6 +17,9 @@ namespace db.timesheet.com {
         [Required, MaxLength(200)]
         public string UserName { get; set; }
 
+        [Required, MaxLength(200)]
+        public string UserID { get; set; }
+
         [Required]
         public string Email { get; set; }
 
