@@ -64,7 +64,7 @@ namespace app.timesheet.com.Controllers {
                             ID = Guid.NewGuid(),
                             Product = product,
                             Customer = customer,
-                            CreatedBy = "System",
+                            CreatedBy = HttpContext.User.Identity.Name,
                             CreatedDtim = DateTime.Now
                         });
 

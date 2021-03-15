@@ -68,7 +68,7 @@ namespace app.timesheet.com.Controllers {
                     ID = Guid.NewGuid(),
                     DepartmentCode = viewModel.DepartmentCode,
                     DepartmentName = viewModel.DepartmentName,
-                    CreatedBy = "system",
+                    CreatedBy = HttpContext.User.Identity.Name,
                     CreatedDtim = DateTime.Now
                 };
 
@@ -98,7 +98,7 @@ namespace app.timesheet.com.Controllers {
                         ID = viewModel.ID,
                         DepartmentCode = viewModel.DepartmentCode,
                         DepartmentName = viewModel.DepartmentName,
-                        UpdatedBy = "system",
+                        UpdatedBy = HttpContext.User.Identity.Name,
                         UpdatedDtim = DateTime.Now
                     };
                     repository.Departments.Add(c);

@@ -70,7 +70,7 @@ namespace app.timesheet.com.Controllers
                     ID = Guid.NewGuid(),
                     TaskCode = viewModel.TaskCode,
                     TaskDescription = viewModel.TaskDescription,
-                    CreatedBy = "system",
+                    CreatedBy = HttpContext.User.Identity.Name,
                     CreatedDtim = DateTime.Now
                 };
 
@@ -100,7 +100,7 @@ namespace app.timesheet.com.Controllers
                         ID = viewModel.ID,
                         TaskCode = viewModel.TaskCode,
                         TaskDescription = viewModel.TaskDescription,
-                        UpdatedBy = "system",
+                        UpdatedBy = HttpContext.User.Identity.Name,
                         UpdatedDtim = DateTime.Now
                     };
                     repository.Tasks.Add(c);

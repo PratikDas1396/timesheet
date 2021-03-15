@@ -51,8 +51,9 @@
                                             </div>
                                             <div>
                                                 <div class="custom-control custom-checkbox align-items-center">
-                                                    <input type="checkbox" class="custom-control-input" value="remember-me" name="remember-me">
-                                                    <label class="custom-control-label text-small">Remember me next time</label>
+                                                    @Html.CheckBoxFor(model => model.RememberMe, htmlAttributes: new { @class = "custom-control-input", value = "remember-me", name = "remember-me"})
+                                                    @*<input type="checkbox" class="custom-control-input" value="remember-me" name="remember-me">*@
+                                                    <label class="custom-control-label text-small" id="remember_chk">Remember me next time</label>
                                                 </div>
                                             </div>
                                             <div class="text-center mt-3">
@@ -97,9 +98,10 @@
 
         function Authenticate(data, callback) {
             const model = ConvertURIToJson(data);
+            const controller = "@Url.Action("Authenticate", "Account")";
             $.ajax({
                 type: "POST",
-                url: "Authenticate",
+                url: controller,
                 contentType: "application/json; charset=utf-8",
                 datatype: "json",
                 data: JSON.stringify(model),

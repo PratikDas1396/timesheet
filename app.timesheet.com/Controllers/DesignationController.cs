@@ -5,13 +5,10 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 
-
-namespace app.timesheet.com.Controllers
-{
+namespace app.timesheet.com.Controllers {
     [Authorize]
 
-    public class DesignationController : Controller
-    {
+    public class DesignationController : Controller {
         private readonly IUnitOfWork repository;
 
         public DesignationController(IUnitOfWork _repository) {
@@ -71,7 +68,7 @@ namespace app.timesheet.com.Controllers
                     ID = Guid.NewGuid(),
                     DesignationCode = viewModel.DesignationCode,
                     DesignationName = viewModel.DesignationName,
-                    CreatedBy = "system",
+                    CreatedBy = HttpContext.User.Identity.Name,
                     CreatedDtim = DateTime.Now
                 };
 
@@ -101,7 +98,7 @@ namespace app.timesheet.com.Controllers
                         ID = viewModel.ID,
                         DesignationCode = viewModel.DesignationCode,
                         DesignationName = viewModel.DesignationName,
-                        UpdatedBy = "system",
+                        UpdatedBy = HttpContext.User.Identity.Name,
                         UpdatedDtim = DateTime.Now
                     };
                     repository.Designations.Add(c);

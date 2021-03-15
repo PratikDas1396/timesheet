@@ -30,6 +30,14 @@ namespace repository.timesheet.com {
                           .FirstOrDefault();
         }
 
+        public Account GetAccountByUserID(string UserID) {
+            return context.Account
+                          .Where(x => x.UserID == UserID)
+                          .Include(x => x.Department)
+                          .Include(x => x.Designation)
+                          .FirstOrDefault();
+        }
+
         public Account GetAccount(string Email) {
             return context.Account
                           .Where(x => x.Email == Email)

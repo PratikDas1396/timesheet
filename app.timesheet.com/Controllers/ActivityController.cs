@@ -70,7 +70,7 @@ namespace app.timesheet.com.Controllers
                     ActivityName = viewModel.ActivityName,
                     DepartmentID = viewModel.DepartmentID,
                     CustomerProductMappingID = viewModel.CustomerProductMappingID,
-                    CreatedBy = "system",
+                    CreatedBy = HttpContext.User.Identity.Name,
                     CreatedDtim = DateTime.Now
                 };
 
@@ -100,7 +100,7 @@ namespace app.timesheet.com.Controllers
                         ID = viewModel.ID,
                         ActivityCode = viewModel.ActivityCode,
                         ActivityName = viewModel.ActivityName,
-                        UpdatedBy = "system",
+                        UpdatedBy = HttpContext.User.Identity.Name,
                         UpdatedDtim = DateTime.Now
                     };
                     repository.Activity.Add(c);

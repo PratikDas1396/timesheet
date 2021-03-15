@@ -10,6 +10,8 @@ namespace repository.timesheet.com {
 
         Account GetAccount(string Email);
 
+        Account GetAccountByUserID(string UserID);
+
         bool CheckUserEmail(string Email);
 
         bool CheckUserCode(string UserID);

@@ -68,7 +68,7 @@ namespace app.timesheet.com.Controllers {
                     ID = Guid.NewGuid(),
                     ProductCode = viewModel.ProductCode,
                     ProductName = viewModel.ProductName,
-                    CreatedBy = "system",
+                    CreatedBy = HttpContext.User.Identity.Name,
                     CreatedDtim = DateTime.Now
                 };
 
@@ -98,7 +98,7 @@ namespace app.timesheet.com.Controllers {
                         ID = viewModel.ID,
                         ProductCode = viewModel.ProductCode,
                         ProductName = viewModel.ProductName,
-                        UpdatedBy = "system",
+                        UpdatedBy = HttpContext.User.Identity.Name,
                         UpdatedDtim = DateTime.Now
                     };
                     repository.Products.Add(c);

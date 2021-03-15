@@ -71,7 +71,7 @@ namespace app.timesheet.com.Controllers
                     ID = Guid.NewGuid(),
                     CustomerCode = viewModel.CustomerCode,
                     CustomerName = viewModel.CustomerName,
-                    CreatedBy = "system",
+                    CreatedBy = HttpContext.User.Identity.Name,
                     CreatedDtim = DateTime.Now
                 };
 
@@ -101,7 +101,7 @@ namespace app.timesheet.com.Controllers
                         ID = viewModel.ID,
                         CustomerCode = viewModel.CustomerCode,
                         CustomerName = viewModel.CustomerName,
-                        UpdatedBy = "system",
+                        UpdatedBy = HttpContext.User.Identity.Name,
                         UpdatedDtim = DateTime.Now
                     };
                     repository.Customers.Add(c);

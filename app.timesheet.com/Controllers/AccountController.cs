@@ -22,7 +22,20 @@ namespace app.timesheet.com.Controllers {
             });
         }
 
-        public ActionResult Login() => PartialView("Login");
+        public ActionResult Login() {
+            if(HttpContext.User.Identity.Name != null) {
+                if(HttpContext.User.Identity.Name.ToString() != "") {
+                    return RedirectToAction("Index", "Home");
+                }
+                else {
+                    FormsAuthentication.SignOut();
+                    return PartialView("Login");
+                }
+            }
+            FormsAuthentication.SignOut();
+            return PartialView("Login");
+        }
+
 
         public ActionResult ForgotPassword() => View("Login");
 
@@ -85,7 +98,7 @@ namespace app.timesheet.com.Controllers {
                     UserID = viewModel.UserID,
                     Email = viewModel.Email,
                     IsActive = true,
-                    CreatedBy = "system",
+                    CreatedBy = HttpContext.User.Identity.Name,
                     CreatedDtim = DateTime.Now
                 };
 
@@ -112,15 +125,17 @@ namespace app.timesheet.com.Controllers {
                 var key = ConfigurationManager.AppSettings["EncKey"].ToString();
                 var EncryptedPassword = Cryptography.Encryption(loginView.UserPin, key);
                 if (repository.Account.Authenticate(loginView.UserID, EncryptedPassword)) {
-                    FormsAuthentication.SetAuthCookie(loginView.UserID, false);
-                    return Json(new ResponseClass<bool>() { isError = false, message = "Authenticate Successful.", showError = false });
+                    FormsAuthentication.SetAuthCookie(loginView.UserID, loginView.RememberMe);
+                    var accountDetails = repository.Account.GetAccountByUserID(loginView.UserID);
+                    Session["UserName"] = accountDetails.UserName;
+                    return Json(new ResponseClass<bool>() { isError = false, message = "Authentication Successful.", showError = false });
                 }
                 else {
-                    return Json(new ResponseClass<bool>() { isError = true, errorType = ErrorType.Validation, message = "invalid User Email and Password", showError = false });
-                }               
+                    return Json(new ResponseClass<bool>() { isError = true, errorType = ErrorType.Validation, message = "Invalid User Email and Password", showError = false });
+                }
             }
             else {
-                return Json(new ResponseClass<bool>() { isError = true, errorType = ErrorType.Validation, message = "invalid User Email and Password", showError = false });
+                return Json(new ResponseClass<bool>() { isError = true, errorType = ErrorType.Validation, message = "Invalid User Email and Password", showError = false });
             }
         }
 
