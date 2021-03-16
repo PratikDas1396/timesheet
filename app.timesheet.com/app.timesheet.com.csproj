@@ -167,6 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\css\app.css" />
+    <Content Include="Assets\img\avatar.png" />
     <Content Include="Assets\js\app.js" />
     <Content Include="Assets\js\dark - Copy.js" />
     <Content Include="Assets\js\dark.js" />
@@ -183,6 +184,7 @@
     <Content Include="Assets\plugins\timepicker\jquery.timepicker.min.css" />
     <Content Include="Assets\plugins\timepicker\jquery.timepicker.min.js" />
     <Content Include="Assets\svg\logo.svg" />
+    <Content Include="Assets\svg\logo1.svg" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />

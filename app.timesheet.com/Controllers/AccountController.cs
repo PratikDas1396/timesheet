@@ -120,6 +120,7 @@ namespace app.timesheet.com.Controllers {
             }
         }
 
+        [HttpPost]
         public ActionResult Authenticate(LoginViewModel loginView) {
             if (ModelState.IsValid) {
                 var key = ConfigurationManager.AppSettings["EncKey"].ToString();

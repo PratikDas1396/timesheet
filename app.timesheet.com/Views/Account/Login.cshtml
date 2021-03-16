@@ -16,58 +16,63 @@
 <body>
     @*@using (Html.BeginForm("Authenticate", "Account", FormMethod.Post)) {
         @Html.AntiForgeryToken();*@
-        
-        <main class="content d-flex p-0">
-            <div class="container d-flex flex-column">
-                <div class="row h-100">
-                    <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
-                        <div class="d-table-cell align-middle">
-                            <div class="text-center mt-4">
-                                <h1 class="h1">Welcome</h1>
-                                <p class="lead">
-                                    Sign in to your account to continue
-                                </p>
-                            </div>
-                            <div class="card">
-                                <div class="card-body">
-                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                    <div class="m-sm-4">
-                                        <form id="loginForm">
-                                            <div class="form-group">
-                                                @Html.LabelFor(model => model.UserID, htmlAttributes: new { @class = "control-label", @for = "inputEmail" })
-                                                @Html.EditorFor(model => model.UserID, new { htmlAttributes = new { @class = "form-control", id = "inputEmail", autocomplete = "off", autofocus = "true" } })
-                                                @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
-                                            </div>
-                                            <div class="form-group">
-                                                @Html.LabelFor(model => model.UserPin, htmlAttributes: new { @class = "control-label", @for = "inputPassword" })
-                                                @Html.EditorFor(model => model.UserPin, new { htmlAttributes = new { @class = "form-control", type = "password", id = "inputPassword", autocomplete = "off" } })
-                                                @Html.ValidationMessageFor(model => model.UserPin, "", new { @class = "text-danger" })
-                                                <div>
-                                                    <small>
-                                                        @*<a href="pages-reset-password.html">Forgot password?</a>*@
-                                                        @Html.ActionLink("Forgot password?", "Forget", "Account")
-                                                    </small>
-                                                </div>
-                                            </div>
+
+    <main class="content d-flex p-0">
+        <div class="container d-flex flex-column">
+            <div class="row h-100">
+                <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
+                    <div class="d-table-cell align-middle">
+                        <div class="text-center">
+                            <img src="~/Assets/svg/logo1.svg" alt="Chris Wood" class="img-fluid rounded-circle" width="132" height="132">
+                            <h1>Time-Sheet</h1>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            @*<h1 class="h1">Welcome</h1>*@
+                            <p class="lead">
+                                Sign in to your account to continue
+                            </p>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="m-sm-4">
+                                    <form id="loginForm">
+                                        <div class="form-group">
+                                            <label>User ID</label>
+                                            @Html.EditorFor(model => model.UserID, new { htmlAttributes = new { @class = "form-control", id = "inputEmail", autocomplete = "off", autofocus = "true" } })
+                                            @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Password</label>
+                                            @Html.EditorFor(model => model.UserPin, new { htmlAttributes = new { @class = "form-control", type = "password", id = "inputPassword", autocomplete = "off" } })
+                                            @Html.ValidationMessageFor(model => model.UserPin, "", new { @class = "text-danger" })
                                             <div>
-                                                <div class="custom-control custom-checkbox align-items-center">
-                                                    @Html.CheckBoxFor(model => model.RememberMe, htmlAttributes: new { @class = "custom-control-input", value = "remember-me", name = "remember-me"})
-                                                    @*<input type="checkbox" class="custom-control-input" value="remember-me" name="remember-me">*@
-                                                    <label class="custom-control-label text-small" id="remember_chk">Remember me next time</label>
-                                                </div>
+                                                <small>
+                                                    @*<a href="pages-reset-password.html">Forgot password?</a>*@
+                                                    @Html.ActionLink("Forgot password?", "Forget", "Account")
+                                                </small>
                                             </div>
-                                            <div class="text-center mt-3">
-                                                <input type="button" id="btnAuth" value="Login" class="btn btn-primary btn-block" />
+                                        </div>
+                                        <div>
+                                            <div class="custom-control custom-checkbox align-items-center">
+                                                @Html.CheckBoxFor(model => model.RememberMe,
+                                               htmlAttributes: new { @class = "custom-control-input", value = "remember-me", name = "remember-me", @id= "remember_chk" })
+                                                <label class="custom-control-label text-small" for="remember_chk">Remember me next time</label>
                                             </div>
-                                        </form>
-                                    </div>
+                                        </div>
+                                        <div class="text-center mt-3">
+                                            <input type="button" id="btnAuth" value="Login" class="btn btn-primary btn-block" />
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
+    </main>
     @*}*@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
