@@ -16,16 +16,38 @@ namespace app.timesheet.com.Controllers
         }
 
         public ActionResult Index() {
-            TimeSheetViewModel TimeSheet = new TimeSheetViewModel() {
-                Mode = "Add",
-                CustomerProductMappingList = repository.CustomerProductMapping.GetDropdown().ToList(),
-                TaskList = repository.Tasks.GetDropdown().ToList(),
-                ActivityList = repository.Activity.GetDropdown().ToList()
-            };
-            return View(TimeSheet);
+            try {
+                TimeSheetViewModel TimeSheet = new TimeSheetViewModel() {
+                    Mode = "Add",
+                    CustomerProductMappingList = repository.CustomerProductMapping.GetDropdown().ToList(),
+                    TaskList = repository.Tasks.GetDropdown().ToList(),
+                    ActivityList = repository.Activity.GetDropdown().ToList()
+                };
+                return View(TimeSheet);
+            }
+            catch (Exception ex) {
+                repository.Exception.Log(ex, "TimeSheetController", "Index", HttpContext.User.Identity.Name);
+                return Json(new ResponseClass<bool>() {
+                    isError = true,
+                    errorType = ErrorType.RuntimeError,
+                    message = "Something went wrong",
+                });
+            }
         }
 
-        public ActionResult Add() => PartialView("_Add", new CustomerViewModel() { Mode = "Add" });
+        public ActionResult Add() {
+            try {
+                return PartialView("_Add", new CustomerViewModel() { Mode = "Add" });
+            }
+            catch (Exception ex) {
+                repository.Exception.Log(ex, "TimeSheetController", "Add", HttpContext.User.Identity.Name);
+                return Json(new ResponseClass<bool>() {
+                    isError = true,
+                    errorType = ErrorType.RuntimeError,
+                    message = "Something went wrong",
+                });
+            }
+        }
 
         public ActionResult Edit(string ID) {
             try {
@@ -43,11 +65,28 @@ namespace app.timesheet.com.Controllers
                 return PartialView("_Add", customer);
             }
             catch (Exception ex) {
-                throw ex;
+                repository.Exception.Log(ex, "TimeSheetController", "Edit", HttpContext.User.Identity.Name);
+                return Json(new ResponseClass<bool>() {
+                    isError = true,
+                    errorType = ErrorType.RuntimeError,
+                    message = "Something went wrong",
+                });
             }
         }
 
-        public ActionResult List() => PartialView("_List", repository.Customers.GetAll().ToList());
+        public ActionResult List() {
+            try {
+                return PartialView("_List", repository.Customers.GetAll().ToList());
+            }
+            catch (Exception ex) {
+                repository.Exception.Log(ex, "TimeSheetController", "List", HttpContext.User.Identity.Name);
+                return Json(new ResponseClass<bool>() {
+                    isError = true,
+                    errorType = ErrorType.RuntimeError,
+                    message = "Something went wrong",
+                });
+            }
+        }
 
         [HttpPost]
         public ActionResult Save(CustomerViewModel viewModel) {
@@ -85,10 +124,11 @@ namespace app.timesheet.com.Controllers
                 });
             }
             catch (Exception ex) {
+                repository.Exception.Log(ex, "TimeSheetController", "Save", HttpContext.User.Identity.Name);
                 return Json(new ResponseClass<bool>() {
                     isError = true,
                     errorType = ErrorType.RuntimeError,
-                    message = String.Format("{0}", Convert.ToString(ex.Message) + " " + Convert.ToString(ex.InnerException)),
+                    message = "Something went wrong",
                 });
             }
         }
@@ -117,10 +157,11 @@ namespace app.timesheet.com.Controllers
                 });
             }
             catch (Exception ex) {
+                repository.Exception.Log(ex, "TimeSheetController", "Update", HttpContext.User.Identity.Name);
                 return Json(new ResponseClass<bool>() {
                     isError = true,
                     errorType = ErrorType.RuntimeError,
-                    message = String.Format("{0}", Convert.ToString(ex.Message) + " " + Convert.ToString(ex.InnerException)),
+                    message = "Something went wrong",
                 });
             }
         }

@@ -8,7 +8,6 @@ using System.Web.Mvc;
 namespace app.timesheet.com.Controllers
 {
     [Authorize]
-
     public class TaskController : Controller
     {
         private readonly IUnitOfWork repository;
@@ -18,13 +17,35 @@ namespace app.timesheet.com.Controllers
         }
 
         public ActionResult Index() {
-            TaskViewModel Task = new TaskViewModel() {
-                TaskList = repository.Tasks.GetAll().ToList()
-            };
-            return View(Task);
+            try {
+                TaskViewModel Task = new TaskViewModel() {
+                    TaskList = repository.Tasks.GetAll().ToList()
+                };
+                return View(Task);
+            }
+            catch (Exception ex) {
+                repository.Exception.Log(ex, "TaskController", "Index", HttpContext.User.Identity.Name);
+                return Json(new ResponseClass<bool>() {
+                    isError = true,
+                    errorType = ErrorType.RuntimeError,
+                    message = "Something went wrong",
+                });
+            }
         }
 
-        public ActionResult Add() => PartialView("_Add", new TaskViewModel() { Mode = "Add" });
+        public ActionResult Add() {
+            try {
+                return PartialView("_Add", new TaskViewModel() { Mode = "Add" });
+            }
+            catch (Exception ex) {
+                repository.Exception.Log(ex, "TaskController", "Add", HttpContext.User.Identity.Name);
+                return Json(new ResponseClass<bool>() {
+                    isError = true,
+                    errorType = ErrorType.RuntimeError,
+                    message = "Something went wrong",
+                });
+            }
+        }
 
         public ActionResult Edit(string ID) {
             try {
@@ -42,11 +63,28 @@ namespace app.timesheet.com.Controllers
                 return PartialView("_Add", Task);
             }
             catch (Exception ex) {
-                throw ex;
+                repository.Exception.Log(ex, "TaskController", "Edit", HttpContext.User.Identity.Name);
+                return Json(new ResponseClass<bool>() {
+                    isError = true,
+                    errorType = ErrorType.RuntimeError,
+                    message = "Something went wrong",
+                });
             }
         }
 
-        public ActionResult List() => PartialView("_List", repository.Tasks.GetAll().ToList());
+        public ActionResult List() {
+            try {
+                return PartialView("_List", repository.Tasks.GetAll().ToList());
+            }
+            catch (Exception ex) {
+                repository.Exception.Log(ex, "TaskController", "List", HttpContext.User.Identity.Name);
+                return Json(new ResponseClass<bool>() {
+                    isError = true,
+                    errorType = ErrorType.RuntimeError,
+                    message = "Something went wrong",
+                });
+            }
+        }
 
         [HttpPost]
         public ActionResult Save(TaskViewModel viewModel) {
@@ -84,10 +122,11 @@ namespace app.timesheet.com.Controllers
                 });
             }
             catch (Exception ex) {
+                repository.Exception.Log(ex, "TaskController", "Save", HttpContext.User.Identity.Name);
                 return Json(new ResponseClass<bool>() {
                     isError = true,
                     errorType = ErrorType.RuntimeError,
-                    message = String.Format("{0}", Convert.ToString(ex.Message) + " " + Convert.ToString(ex.InnerException)),
+                    message = "Something went wrong",
                 });
             }
         }
@@ -112,14 +151,15 @@ namespace app.timesheet.com.Controllers
                 return Json(new ResponseClass<bool>() {
                     data = true,
                     isError = false,
-                    message = "Data Uodated successfully.",
+                    message = "Data Updated successfully.",
                 });
             }
             catch (Exception ex) {
+                repository.Exception.Log(ex, "TaskController", "Update", HttpContext.User.Identity.Name);
                 return Json(new ResponseClass<bool>() {
                     isError = true,
                     errorType = ErrorType.RuntimeError,
-                    message = String.Format("{0}", Convert.ToString(ex.Message) + " " + Convert.ToString(ex.InnerException)),
+                    message = "Something went wrong",
                 });
             }
         }

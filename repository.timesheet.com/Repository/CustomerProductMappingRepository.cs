@@ -23,9 +23,7 @@ namespace repository.timesheet.com {
         }
 
         public IList<DropdownKeyValue> GetDropdown() {
-            List<DropdownKeyValue> dropdown = new List<DropdownKeyValue>();
-
-            dropdown = context.CustomerProductMapping
+            return context.CustomerProductMapping
                               .Include(x => x.Customer)
                               .Include(y => y.Product)
                               .AsEnumerable()
@@ -33,8 +31,6 @@ namespace repository.timesheet.com {
                                   ParamText = String.Format("{0} - {1}", x.Customer.CustomerName, x.Product.ProductName),
                                   ParamValue = x.ID.ToString()
                               }).ToList();
-
-            return dropdown;
         }
 
         public TimeSheetDBContext dBContext { get { return context as TimeSheetDBContext; } }

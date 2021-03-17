@@ -9,6 +9,7 @@
         IActivityRepository Activity { get; }
         ITimeSheetRepository TimeSheet { get; }
         IAccountRepository Account { get; }
+        IExceptionRepository Exception { get; }
 
         int Complete();
     }

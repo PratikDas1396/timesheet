@@ -16,15 +16,27 @@ namespace app.timesheet.com.Controllers {
             repository = _repository;
         }
 
+        [Authorize]
         public ActionResult Index() {
-            return View("Index", new AccountViewModel() {
-                UserList = repository.Account.GetAccounts().ToList(),
-            });
+            try {
+                var accounts = repository.Account.GetAccounts().ToList();
+                return View("Index", new AccountViewModel() {
+                    UserList = accounts,
+                });
+            }
+            catch (Exception ex) {
+                repository.Exception.Log(ex, "AccountController", "Index", HttpContext.User.Identity.Name);
+                return Json(new ResponseClass<bool>() {
+                    isError = true,
+                    errorType = ErrorType.RuntimeError,
+                    message = "Something went wrong",
+                });
+            }
         }
 
         public ActionResult Login() {
-            if(HttpContext.User.Identity.Name != null) {
-                if(HttpContext.User.Identity.Name.ToString() != "") {
+            if (HttpContext.User.Identity.Name != null) {
+                if (HttpContext.User.Identity.Name.ToString() != "") {
                     return RedirectToAction("Index", "Home");
                 }
                 else {
@@ -39,14 +51,42 @@ namespace app.timesheet.com.Controllers {
 
         public ActionResult ForgotPassword() => View("Login");
 
-        public ActionResult List() => PartialView("_List", repository.Account.GetAccounts().ToList());
+        [Authorize]
+        public ActionResult List() {
+            try {
+                return PartialView("_List", repository.Account.GetAccounts().ToList());
+            }
+            catch (Exception ex) {
+                repository.Exception.Log(ex, "AccountController", "List", HttpContext.User.Identity.Name);
+                return Json(new ResponseClass<bool>() {
+                    isError = true,
+                    errorType = ErrorType.RuntimeError,
+                    message = "Something went wrong",
+                });
+            }
+        }
 
-        public ActionResult Add() => PartialView("_Add", new AccountViewModel() {
-            Mode = "Add",
-            DepartmentList = repository.Departments.GetDropdown().ToList(),
-            DesignationList = repository.Designations.GetDropdown().ToList(),
-        });
+        [Authorize]
+        public ActionResult Add() {
+            try {
+                return PartialView("_Add", new AccountViewModel() {
+                    Mode = "Add",
+                    DepartmentList = repository.Departments.GetDropdown().ToList(),
+                    DesignationList = repository.Designations.GetDropdown().ToList(),
+                });
+            }
+            catch (Exception ex) {
+                repository.Exception.Log(ex, "AccountController", "Add", HttpContext.User.Identity.Name);
+                return Json(new ResponseClass<bool>() {
+                    isError = true,
+                    errorType = ErrorType.RuntimeError,
+                    message = "Something went wrong",
+                });
+            }
 
+        }
+
+        [Authorize]
         public ActionResult Edit(string ID) {
             try {
                 var account = repository.Account.Get(Guid.Parse(ID));
@@ -69,10 +109,17 @@ namespace app.timesheet.com.Controllers {
                 return PartialView("_Add", accountViewModel);
             }
             catch (Exception ex) {
-                throw ex;
+                repository.Exception.Log(ex, "AccountController", "Edit", HttpContext.User.Identity.Name);
+                return Json(new ResponseClass<bool>() {
+                    isError = true,
+                    errorType = ErrorType.RuntimeError,
+                    message = "Something went wrong",
+                });
             }
         }
 
+
+        [Authorize]
         [HttpPost]
         public ActionResult Save(AccountViewModel viewModel) {
             try {
@@ -112,31 +159,43 @@ namespace app.timesheet.com.Controllers {
                 });
             }
             catch (Exception ex) {
+                repository.Exception.Log(ex, "AccountController", "Save", HttpContext.User.Identity.Name);
                 return Json(new ResponseClass<bool>() {
                     isError = true,
                     errorType = ErrorType.RuntimeError,
-                    message = String.Format("{0}", Convert.ToString(ex.Message) + " " + Convert.ToString(ex.InnerException)),
+                    message = "Something went wrong",
                 });
             }
         }
 
+
         [HttpPost]
         public ActionResult Authenticate(LoginViewModel loginView) {
-            if (ModelState.IsValid) {
-                var key = ConfigurationManager.AppSettings["EncKey"].ToString();
-                var EncryptedPassword = Cryptography.Encryption(loginView.UserPin, key);
-                if (repository.Account.Authenticate(loginView.UserID, EncryptedPassword)) {
-                    FormsAuthentication.SetAuthCookie(loginView.UserID, loginView.RememberMe);
-                    var accountDetails = repository.Account.GetAccountByUserID(loginView.UserID);
-                    Session["UserName"] = accountDetails.UserName;
-                    return Json(new ResponseClass<bool>() { isError = false, message = "Authentication Successful.", showError = false });
+            try {
+                if (ModelState.IsValid) {
+                    var key = ConfigurationManager.AppSettings["EncKey"].ToString();
+                    var EncryptedPassword = Cryptography.Encryption(loginView.UserPin, key);
+                    if (repository.Account.Authenticate(loginView.UserID, EncryptedPassword)) {
+                        FormsAuthentication.SetAuthCookie(loginView.UserID, loginView.RememberMe);
+                        var accountDetails = repository.Account.GetAccountByUserID(loginView.UserID);
+                        Session["UserName"] = accountDetails.UserName;
+                        return Json(new ResponseClass<bool>() { isError = false, message = "Authentication Successful.", showError = false });
+                    }
+                    else {
+                        return Json(new ResponseClass<bool>() { isError = true, errorType = ErrorType.Validation, message = "Invalid User Email and Password", showError = false });
+                    }
                 }
                 else {
                     return Json(new ResponseClass<bool>() { isError = true, errorType = ErrorType.Validation, message = "Invalid User Email and Password", showError = false });
                 }
             }
-            else {
-                return Json(new ResponseClass<bool>() { isError = true, errorType = ErrorType.Validation, message = "Invalid User Email and Password", showError = false });
+            catch (Exception ex) {
+                repository.Exception.Log(ex, "AccountController", "Save", HttpContext.User.Identity.Name);
+                return Json(new ResponseClass<bool>() {
+                    isError = true,
+                    errorType = ErrorType.RuntimeError,
+                    message = "Something went wrong",
+                });
             }
         }
 

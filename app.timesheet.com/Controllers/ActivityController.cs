@@ -5,11 +5,9 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 
-namespace app.timesheet.com.Controllers
-{
+namespace app.timesheet.com.Controllers {
     [Authorize]
-    public class ActivityController : Controller
-    {
+    public class ActivityController : Controller {
         private readonly IUnitOfWork repository;
 
         public ActivityController(IUnitOfWork _repository) {
@@ -17,16 +15,39 @@ namespace app.timesheet.com.Controllers
         }
 
         public ActionResult Index() {
-            ActivityViewModel Activity = new ActivityViewModel() {
-                ActivityList = repository.Activity.GetActivities().ToList()
-            };  
-            return View(Activity);
+            try {
+                ActivityViewModel Activity = new ActivityViewModel() {
+                    ActivityList = repository.Activity.GetActivities().ToList()
+                };
+                return View(Activity);
+            }
+            catch (Exception ex) {
+                repository.Exception.Log(ex, "ActivityController", "Index", HttpContext.User.Identity.Name);
+                return Json(new ResponseClass<bool>() {
+                    isError = true,
+                    errorType = ErrorType.RuntimeError,
+                    message = "Something went wrong",
+                });
+            }
         }
 
-        public ActionResult Add() => PartialView("_Add", new ActivityViewModel() { Mode = "Add",
-            DepartmentList = repository.Departments.GetDropdown().ToList(),
-            CustomerProductMappingList = repository.CustomerProductMapping.GetDropdown().ToList()
-        });
+        public ActionResult Add() {
+            try {
+                return PartialView("_Add", new ActivityViewModel() {
+                    Mode = "Add",
+                    DepartmentList = repository.Departments.GetDropdown().ToList(),
+                    CustomerProductMappingList = repository.CustomerProductMapping.GetDropdown().ToList()
+                });
+            }
+            catch (Exception ex) {
+                repository.Exception.Log(ex, "ActivityController", "Add", HttpContext.User.Identity.Name);
+                return Json(new ResponseClass<bool>() {
+                    isError = true,
+                    errorType = ErrorType.RuntimeError,
+                    message = "Something went wrong",
+                });
+            }
+        }
 
         public ActionResult Edit(string ID) {
             try {
@@ -48,11 +69,28 @@ namespace app.timesheet.com.Controllers
                 return PartialView("_Add", Activity);
             }
             catch (Exception ex) {
-                throw ex;
+                repository.Exception.Log(ex, "ActivityController", "Edit", HttpContext.User.Identity.Name);
+                return Json(new ResponseClass<bool>() {
+                    isError = true,
+                    errorType = ErrorType.RuntimeError,
+                    message = "Something went wrong",
+                });
             }
         }
 
-        public ActionResult List() => PartialView("_List", repository.Activity.GetActivities().ToList());
+        public ActionResult List() {
+            try {
+                return PartialView("_List", repository.Activity.GetActivities().ToList());
+            }
+            catch (Exception ex) {
+                repository.Exception.Log(ex, "ActivityController", "List", HttpContext.User.Identity.Name);
+                return Json(new ResponseClass<bool>() {
+                    isError = true,
+                    errorType = ErrorType.RuntimeError,
+                    message = "Something went wrong",
+                });
+            }
+        }
 
         [HttpPost]
         public ActionResult Save(ActivityViewModel viewModel) {
@@ -84,10 +122,11 @@ namespace app.timesheet.com.Controllers
                 });
             }
             catch (Exception ex) {
+                repository.Exception.Log(ex, "ActivityController", "Save", HttpContext.User.Identity.Name);
                 return Json(new ResponseClass<bool>() {
                     isError = true,
                     errorType = ErrorType.RuntimeError,
-                    message = String.Format("{0}", Convert.ToString(ex.Message) + " " + Convert.ToString(ex.InnerException)),
+                    message = "Something went wrong",
                 });
             }
         }
@@ -112,14 +151,15 @@ namespace app.timesheet.com.Controllers
                 return Json(new ResponseClass<bool>() {
                     data = true,
                     isError = false,
-                    message = "Data Uodated successfully.",
+                    message = "Data Updated successfully.",
                 });
             }
             catch (Exception ex) {
+                repository.Exception.Log(ex, "ActivityController", "Update", HttpContext.User.Identity.Name);
                 return Json(new ResponseClass<bool>() {
                     isError = true,
                     errorType = ErrorType.RuntimeError,
-                    message = String.Format("{0}", Convert.ToString(ex.Message) + " " + Convert.ToString(ex.InnerException)),
+                    message = "Something went wrong",
                 });
             }
         }

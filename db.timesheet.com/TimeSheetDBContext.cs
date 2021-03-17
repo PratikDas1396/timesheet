@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 
 namespace db.timesheet.com {
     public class TimeSheetDBContext : DbContext
@@ -14,27 +13,14 @@ namespace db.timesheet.com {
         public DbSet<TimeSheet> TimeSheet { get; set; }
         public DbSet<Activity> Activity { get; set; }
         public DbSet<Account> Account { get; set; }
+        public DbSet<ErrorLog> ErrorLog { get; set; }
 
-        public TimeSheetDBContext(): base("TimeSheetDb") {
+        public TimeSheetDBContext(): base("name=TimeSheetDB") {
 
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder) {
-
-            //Initialization Stratergy
-            //Database.SetInitializer<TimeSheetDBContext>(new DropCreateDatabaseIfModelChanges<TimeSheetDBContext>());
             modelBuilder.Properties<DateTime>().Configure(c => c.HasColumnType("datetime2"));
-
-            //modelBuilder.Entity<Customer>().Property(e => e.ID).HasColumnName("CustomerID");
-            //modelBuilder.Entity<Product>().Property(e => e.ID).HasColumnName("ProductID");
-
-            //modelBuilder.Entity<Customer>().HasMany(c => c.Product)
-            //                               .WithMany(c => c.Customer)
-            //                               .Map(ep => {
-            //                                   ep.MapLeftKey("Customer");
-            //                                   ep.MapRightKey("Product");
-            //                                   ep.ToTable("CustomerProductMappings");
-            //                               });
         }
     }
 }

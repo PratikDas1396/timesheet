@@ -14,7 +14,7 @@ namespace repository.timesheet.com {
         public IActivityRepository Activity { get; private set; }
         public ITimeSheetRepository TimeSheet { get; private set; }
         public IAccountRepository Account { get; private set; }
-
+        public IExceptionRepository Exception { get; private set; }
 
 
         public UnitOfWork(TimeSheetDBContext _context) {
@@ -31,6 +31,7 @@ namespace repository.timesheet.com {
             Activity = new ActivityRepository(_context);
             TimeSheet = new TimeSheetRepository(_context);
             Account = new AccountRepository(_context);
+            Exception = new ExceptionRepository(_context);
         }
 
         public int Complete() {

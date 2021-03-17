@@ -15,17 +15,39 @@ namespace app.timesheet.com.Controllers {
         }
 
         public ActionResult Index() {
-            CustomerProductMappingViewModel CustomerProductMapping = new CustomerProductMappingViewModel() {
-                CustomerProductMappingList = repository.CustomerProductMapping.GetCustomerProductMapping().ToList()
-            };
-            return View(CustomerProductMapping);
+            try {
+                CustomerProductMappingViewModel CustomerProductMapping = new CustomerProductMappingViewModel() {
+                    CustomerProductMappingList = repository.CustomerProductMapping.GetCustomerProductMapping().ToList()
+                };
+                return View(CustomerProductMapping);
+            }
+            catch (Exception ex) {
+                repository.Exception.Log(ex, "CustomerProductMappingController", "Index", HttpContext.User.Identity.Name);
+                return Json(new ResponseClass<bool>() {
+                    isError = true,
+                    errorType = ErrorType.RuntimeError,
+                    message = "Something went wrong",
+                });
+            }
         }
 
-        public ActionResult Add() => PartialView("_Add", new CustomerProductMappingViewModel() {
-            Mode = "Add",
-            CustomerList = repository.Customers.GetAll().ToList(),
-            ProductList = repository.Products.GetAll().ToList()
-        });
+        public ActionResult Add() {
+            try {
+                return PartialView("_Add", new CustomerProductMappingViewModel() {
+                    Mode = "Add",
+                    CustomerList = repository.Customers.GetAll().ToList(),
+                    ProductList = repository.Products.GetAll().ToList()
+                });
+            }
+            catch (Exception ex) {
+                repository.Exception.Log(ex, "CustomerProductMappingController", "Add", HttpContext.User.Identity.Name);
+                return Json(new ResponseClass<bool>() {
+                    isError = true,
+                    errorType = ErrorType.RuntimeError,
+                    message = "Something went wrong",
+                });
+            }
+        }
 
         public ActionResult Edit(string ID) {
             try {
@@ -44,18 +66,35 @@ namespace app.timesheet.com.Controllers {
                 });
             }
             catch (Exception ex) {
-                throw ex;
+                repository.Exception.Log(ex, "CustomerProductMappingController", "Edit", HttpContext.User.Identity.Name);
+                return Json(new ResponseClass<bool>() {
+                    isError = true,
+                    errorType = ErrorType.RuntimeError,
+                    message = "Something went wrong",
+                });
             }
         }
 
-        public ActionResult List() => PartialView("_List", repository.CustomerProductMapping.GetCustomerProductMapping().ToList());
+        public ActionResult List() {
+            try {
+                return PartialView("_List", repository.CustomerProductMapping.GetCustomerProductMapping().ToList());
+            }
+            catch (Exception ex) {
+                repository.Exception.Log(ex, "CustomerProductMappingController", "List", HttpContext.User.Identity.Name);
+                return Json(new ResponseClass<bool>() {
+                    isError = true,
+                    errorType = ErrorType.RuntimeError,
+                    message = "Something went wrong",
+                });
+            }
+        }
 
         [HttpPost]
         public ActionResult Save(CustomerProductMappingViewModel viewModel) {
             try {
 
                 if (ModelState.IsValid) {
-                    var isAvail = repository.CustomerProductMapping.CheckCustomerMappingExists(viewModel.CustomerID, viewModel.CustomerID) ;
+                    var isAvail = repository.CustomerProductMapping.CheckCustomerMappingExists(viewModel.CustomerID, viewModel.CustomerID);
                     if (!isAvail) {
                         var customer = repository.Customers.Get(viewModel.CustomerID);
                         var product = repository.Products.Get(viewModel.ProductID);
@@ -85,10 +124,11 @@ namespace app.timesheet.com.Controllers {
                 }
             }
             catch (Exception ex) {
+                repository.Exception.Log(ex, "CustomerProductMappingController", "Save", HttpContext.User.Identity.Name);
                 return Json(new ResponseClass<bool>() {
                     isError = true,
                     errorType = ErrorType.RuntimeError,
-                    message = String.Format("{0}", Convert.ToString(ex.Message) + " " + Convert.ToString(ex.InnerException)),
+                    message = "Something went wrong",
                 });
             }
         }
@@ -96,18 +136,18 @@ namespace app.timesheet.com.Controllers {
         [HttpPost]
         public ActionResult Update(CustomerProductMappingViewModel viewModel) {
             try {
-
                 return Json(new ResponseClass<bool>() {
                     data = true,
                     isError = false,
-                    message = "Data Uodated successfully.",
+                    message = "Data Updated successfully.",
                 });
             }
             catch (Exception ex) {
+                repository.Exception.Log(ex, "CustomerProductMappingController", "Update", HttpContext.User.Identity.Name);
                 return Json(new ResponseClass<bool>() {
                     isError = true,
                     errorType = ErrorType.RuntimeError,
-                    message = String.Format("{0}", Convert.ToString(ex.Message) + " " + Convert.ToString(ex.InnerException)),
+                    message = "Something went wrong",
                 });
             }
         }

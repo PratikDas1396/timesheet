@@ -7,8 +7,7 @@ using System.Web.Mvc;
 
 namespace app.timesheet.com.Controllers {
     [Authorize]
-    public class DepartmentController : Controller
-    {
+    public class DepartmentController : Controller {
         private readonly IUnitOfWork repository;
 
         public DepartmentController(IUnitOfWork _repository) {
@@ -16,13 +15,35 @@ namespace app.timesheet.com.Controllers {
         }
 
         public ActionResult Index() {
-            DepartmentViewModel Department = new DepartmentViewModel() {
-                DepartmentList = repository.Departments.GetAll().ToList()
-            };
-            return View(Department);
+            try {
+                DepartmentViewModel Department = new DepartmentViewModel() {
+                    DepartmentList = repository.Departments.GetAll().ToList()
+                };
+                return View(Department);
+            }
+            catch (Exception ex) {
+                repository.Exception.Log(ex, "DepartmentController", "Index", HttpContext.User.Identity.Name);
+                return Json(new ResponseClass<bool>() {
+                    isError = true,
+                    errorType = ErrorType.RuntimeError,
+                    message = "Something went wrong",
+                });
+            }
         }
 
-        public ActionResult Add() => PartialView("_Add", new DepartmentViewModel() { Mode = "Add" });
+        public ActionResult Add() {
+            try {
+                return PartialView("_Add", new DepartmentViewModel() { Mode = "Add" });
+            }
+            catch (Exception ex) {
+                repository.Exception.Log(ex, "DepartmentController", "Add", HttpContext.User.Identity.Name);
+                return Json(new ResponseClass<bool>() {
+                    isError = true,
+                    errorType = ErrorType.RuntimeError,
+                    message = "Something went wrong",
+                });
+            }
+        }
 
         public ActionResult Edit(string ID) {
             try {
@@ -40,11 +61,29 @@ namespace app.timesheet.com.Controllers {
                 return PartialView("_Add", Department);
             }
             catch (Exception ex) {
-                throw ex;
+                repository.Exception.Log(ex, "DepartmentController", "Edit", HttpContext.User.Identity.Name);
+                return Json(new ResponseClass<bool>() {
+                    isError = true,
+                    errorType = ErrorType.RuntimeError,
+                    message = "Something went wrong",
+                });
             }
         }
 
-        public ActionResult List() => PartialView("_List", repository.Departments.GetAll().ToList());
+        public ActionResult List() {
+            try {
+                return PartialView("_List", PartialView("_List", repository.Departments.GetAll().ToList()));
+            }
+            catch (Exception ex) {
+                repository.Exception.Log(ex, "DepartmentController", "List", HttpContext.User.Identity.Name);
+                return Json(new ResponseClass<bool>() {
+                    isError = true,
+
+                    errorType = ErrorType.RuntimeError,
+                    message = "Something went wrong",
+                });
+            }
+        }
 
         [HttpPost]
         public ActionResult Save(DepartmentViewModel viewModel) {
@@ -82,10 +121,11 @@ namespace app.timesheet.com.Controllers {
                 });
             }
             catch (Exception ex) {
+                repository.Exception.Log(ex, "DepartmentController", "Save", HttpContext.User.Identity.Name);
                 return Json(new ResponseClass<bool>() {
                     isError = true,
                     errorType = ErrorType.RuntimeError,
-                    message = String.Format("{0}", Convert.ToString(ex.Message) + " " + Convert.ToString(ex.InnerException)),
+                    message = "Something went wrong",
                 });
             }
         }
@@ -110,14 +150,15 @@ namespace app.timesheet.com.Controllers {
                 return Json(new ResponseClass<bool>() {
                     data = true,
                     isError = false,
-                    message = "Data Uodated successfully.",
+                    message = "Data Updated successfully.",
                 });
             }
             catch (Exception ex) {
+                repository.Exception.Log(ex, "DepartmentController", "Update", HttpContext.User.Identity.Name);
                 return Json(new ResponseClass<bool>() {
                     isError = true,
                     errorType = ErrorType.RuntimeError,
-                    message = String.Format("{0}", Convert.ToString(ex.Message) + " " + Convert.ToString(ex.InnerException)),
+                    message = "Something went wrong",
                 });
             }
         }

@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DbEntities\ErrorLog.cs" />
     <Compile Include="Migrations\202103091600041_Customer Product mapping.cs" />
     <Compile Include="Migrations\202103091600041_Customer Product mapping.designer.cs">
       <DependentUpon>202103091600041_Customer Product mapping.cs</DependentUpon>
