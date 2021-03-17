@@ -1,20 +1,15 @@
-﻿namespace db.timesheet.com.Migrations
-{
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<db.timesheet.com.TimeSheetDBContext>
-    {
-        public Configuration()
-        {
-            AutomaticMigrationsEnabled = false;
-        }
+namespace db.timesheet.com {
 
-        protected override void Seed(db.timesheet.com.TimeSheetDBContext context)
-        {
+    public class DataSeeder: DropCreateDatabaseAlways<TimeSheetDBContext> {
 
+        protected override void Seed(TimeSheetDBContext context) {
 
             var DepartmentID = Guid.NewGuid();
             var DesignationID = Guid.NewGuid();

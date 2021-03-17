@@ -51,38 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataSeeder.cs" />
     <Compile Include="DbEntities\ErrorLog.cs" />
-    <Compile Include="Migrations\202103091600041_Customer Product mapping.cs" />
-    <Compile Include="Migrations\202103091600041_Customer Product mapping.designer.cs">
-      <DependentUpon>202103091600041_Customer Product mapping.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202103101405123_Activity-Product Mapping.cs" />
-    <Compile Include="Migrations\202103101405123_Activity-Product Mapping.designer.cs">
-      <DependentUpon>202103101405123_Activity-Product Mapping.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202103101411356_Activity-Product Mapping one.cs" />
-    <Compile Include="Migrations\202103101411356_Activity-Product Mapping one.designer.cs">
-      <DependentUpon>202103101411356_Activity-Product Mapping one.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202103101554130_Activity-Department Mapping one.cs" />
-    <Compile Include="Migrations\202103101554130_Activity-Department Mapping one.designer.cs">
-      <DependentUpon>202103101554130_Activity-Department Mapping one.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202103120430585_timesheet and account table mapping 2.cs" />
-    <Compile Include="Migrations\202103120430585_timesheet and account table mapping 2.designer.cs">
-      <DependentUpon>202103120430585_timesheet and account table mapping 2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202103121357525_add is active flag.cs" />
-    <Compile Include="Migrations\202103121357525_add is active flag.designer.cs">
-      <DependentUpon>202103121357525_add is active flag.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202103121423373_renaming col name.cs" />
-    <Compile Include="Migrations\202103121423373_renaming col name.designer.cs">
-      <DependentUpon>202103121423373_renaming col name.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202103150559049_added userid column.cs" />
-    <Compile Include="Migrations\202103150559049_added userid column.designer.cs">
-      <DependentUpon>202103150559049_added userid column.cs</DependentUpon>
+    <Compile Include="Migrations\202103171221360_initial.cs" />
+    <Compile Include="Migrations\202103171221360_initial.designer.cs">
+      <DependentUpon>202103171221360_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="TimeSheetDBContext.cs" />
@@ -104,29 +77,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202103091600041_Customer Product mapping.resx">
-      <DependentUpon>202103091600041_Customer Product mapping.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202103101405123_Activity-Product Mapping.resx">
-      <DependentUpon>202103101405123_Activity-Product Mapping.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202103101411356_Activity-Product Mapping one.resx">
-      <DependentUpon>202103101411356_Activity-Product Mapping one.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202103101554130_Activity-Department Mapping one.resx">
-      <DependentUpon>202103101554130_Activity-Department Mapping one.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202103120430585_timesheet and account table mapping 2.resx">
-      <DependentUpon>202103120430585_timesheet and account table mapping 2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202103121357525_add is active flag.resx">
-      <DependentUpon>202103121357525_add is active flag.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202103121423373_renaming col name.resx">
-      <DependentUpon>202103121423373_renaming col name.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202103150559049_added userid column.resx">
-      <DependentUpon>202103150559049_added userid column.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202103171221360_initial.resx">
+      <DependentUpon>202103171221360_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

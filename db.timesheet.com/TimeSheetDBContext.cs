@@ -15,10 +15,10 @@ namespace db.timesheet.com {
         public DbSet<Account> Account { get; set; }
         public DbSet<ErrorLog> ErrorLog { get; set; }
 
-        public TimeSheetDBContext(): base("name=TimeSheetDB") {
-
+        public TimeSheetDBContext(): base("TimeSheetDB") {
+            //Database.SetInitializer(new DataSeeder());
         }
-
+      
         protected override void OnModelCreating(DbModelBuilder modelBuilder) {
             modelBuilder.Properties<DateTime>().Configure(c => c.HasColumnType("datetime2"));
         }
