@@ -5,11 +5,6 @@
 
 <div class="card flex-fill w-100">
     <div class="card-header border-bottom">
-        @*<div class="card-actions float-right  ">
-                <button class="btn btn-link global-modal-close" >
-                    <i class="fas fa-times cursor-pointer" title="Close"></i>
-                </button>
-            </div>*@
         @{
             if (Model.Mode == "Add") {
                 <h5 class="card-title mb-0">Add Task Description</h5>
@@ -25,35 +20,35 @@
                 <div class="row">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="col-sm-12 form-group">
-                        @Html.LabelFor(model => model.CustomerProductMappingID, htmlAttributes: new { @class = "control-label" })
+                        <label>Customer - Product Mapping</label>
                         @Html.DropDownListFor(model => model.CustomerProductMappingID, new SelectList(Model.CustomerProductMappingList, "ParamValue", "ParamText")
                                                         , "Select Customer-Product Mapping", new { @id = "ddlMapping",  @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.CustomerProductMappingID, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-sm-12 form-group">
-                        @Html.LabelFor(model => model.TaskID, htmlAttributes: new { @class = "control-label" })
+                        <label>Task</label>
                         @Html.DropDownListFor(model => model.TaskID, new SelectList(Model.TaskList, "ParamValue", "ParamText")
                                                         , "Select Task", new { @id = "ddlTask",  @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.TaskID, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-sm-12 form-group">
-                        @Html.LabelFor(model => model.ActivityID, htmlAttributes: new { @class = "control-label" })
+                        <label>Activity</label>
                         @Html.DropDownListFor(model => model.ActivityID, new SelectList(Model.ActivityList, "ParamValue", "ParamText")
                                                         , "Select Activity", new { @id = "ddlActivity",  @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.ActivityID, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-sm-12 form-group">
-                        @Html.LabelFor(model => model.TaskDescription, htmlAttributes: new { @class = "control-label" })
+                        <label>Task Description</label>
                         @Html.EditorFor(model => model.TaskDescription, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
                         @Html.ValidationMessageFor(model => model.TaskDescription, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-sm-12 form-group">
-                        @Html.LabelFor(model => model.FromTime, htmlAttributes: new { @class = "control-label" })
+                        <label>From Time</label>
                         @Html.EditorFor(model => model.FromTime, new { htmlAttributes = new { @class = "form-control timepicker", autocomplete = "off" } })
                         @Html.ValidationMessageFor(model => model.FromTime, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-sm-12 form-group">
-                        @Html.LabelFor(model => model.ToTime, htmlAttributes: new { @class = "control-label" })
+                        <label>To Time</label>
                         @Html.EditorFor(model => model.ToTime, new { htmlAttributes = new { @class = "form-control timepicker", autocomplete = "off" } })
                         @Html.ValidationMessageFor(model => model.ToTime, "", new { @class = "text-danger" })
                     </div>
@@ -73,7 +68,9 @@
             </form>
         </div>
     </div>
-    @Scripts.Render("~/bundles/jqueryval")
+    
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script>
 
         $(document).ready(function () {
@@ -84,7 +81,6 @@
                     SaveActivityDetails(ActivityForm.serialize(), onSuccess);
                 }
             })
-
 
             $("#ddlMapping").select2();
             $("#ddlTask").select2();
@@ -103,6 +99,21 @@
             });
         })
 
+        function onSuccess(data) {
+            const notifier = getNotifier();
+            if (data["isError"]) {
+                notifier.error(data["message"]);
+                return;
+            }
+            else {
+                document.getElementById("AccountForm").reset();
+                notifier.success(data["message"]);
+                $("#ddlMapping").select2();
+                $("#ddlTask").select2();
+                $("#ddlActivity").select2();
+                return;
+            }
+        }
     </script>
 </div>
 

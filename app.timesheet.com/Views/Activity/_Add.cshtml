@@ -5,48 +5,37 @@
 
 <div class="card flex-fill w-100">
     <div class="card-header border-bottom">
-        @*<div class="card-actions float-right  ">
-                <button class="btn btn-link global-modal-close" >
-                    <i class="fas fa-times cursor-pointer" title="Close"></i>
-                </button>
-            </div>*@
-        @{
-            var Method = "";
-            if (Model.Mode == "Add") {
-                <h5 class="card-title mb-0">Add Activity</h5>
-                Method = "Save";
-            }
-            else {
-                <h5 class="card-title mb-0">Edit Activity</h5>
-                Method = "Edit";
-            }
+        @if (Model.Mode == "Add") {
+            <h5 class="card-title mb-0">Add Activity</h5>
+        }
+        else {
+            <h5 class="card-title mb-0">Edit Activity</h5>
         }
     </div>
     <div class="card-body d-flex">
         <div class="w-100">
             <form id="ActivityForm">
-                @*@using (Ajax.BeginForm(Method, null, new AjaxOptions() { OnSuccess = "onSuccess", OnFailure = ""}, htmlAttributes: new  { id = "ActivityForm" })) {*@
                 <div class="row">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="col-sm-12 form-group">
-                        @Html.LabelFor(model => model.DepartmentID, htmlAttributes: new { @class = "control-label" })
+                        <label>Department</label>
                         @Html.DropDownListFor(model => model.DepartmentID, new SelectList(Model.DepartmentList, "ParamValue", "ParamText")
                                                         , "Select Department", new { @id= "ddlDepartment",  @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.DepartmentID, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-sm-12 form-group">
-                        @Html.LabelFor(model => model.CustomerProductMappingID, htmlAttributes: new { @class = "control-label" })
+                        <label>Customer - Product</label>
                         @Html.DropDownListFor(model => model.CustomerProductMappingID, new SelectList(Model.CustomerProductMappingList, "ParamValue", "ParamText")
                                                         , "Select Customer-Product Mapping", new { @id = "ddlMapping",  @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.CustomerProductMappingID, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-sm-12 form-group">
-                        @Html.LabelFor(model => model.ActivityCode, htmlAttributes: new { @class = "control-label" })
+                        <label>Activity Code</label>
                         @Html.EditorFor(model => model.ActivityCode, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
                         @Html.ValidationMessageFor(model => model.ActivityCode, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-sm-12 form-group">
-                        @Html.LabelFor(model => model.ActivityName, htmlAttributes: new { @class = "control-label" })
+                        <label>Activity Name</label>
                         @Html.EditorFor(model => model.ActivityName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
                         @Html.ValidationMessageFor(model => model.ActivityName, "", new { @class = "text-danger" })
                     </div>
@@ -63,11 +52,11 @@
 
                     </div>
                 </div>
-                @* } *@
             </form>
         </div>
     </div>
-    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script>
 
         $(document).ready(function () {
@@ -80,7 +69,6 @@
             })
 
             $("#btnUpdate").on("click", function () {
-                
                 const ActivityForm = $("#ActivityForm");
                 const id = $("#Activity-id").val();
                 if (ActivityForm.valid()) {
@@ -101,6 +89,8 @@
             else {
                 document.getElementById("ActivityForm").reset();
                 notifier.success(data["message"]);
+                $("#ddlDepartment").select2();
+                $("#ddlMapping").select2();
                 return;
             }
         }

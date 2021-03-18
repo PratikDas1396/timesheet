@@ -16,16 +16,16 @@
     </div>
     <div class="card-body d-flex">
         <div class="w-100">
-            <form id="CustomerProductMappingForm">    
+            <form id="CustomerProductMappingForm">
                 <div class="row">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="col-sm-12 form-group">
-                        @Html.LabelFor(model => model.CustomerList, htmlAttributes: new { @class = "control-label" })
+                        <label>Customer</label>
                         @Html.DropDownListFor(model => model.CustomerID, new SelectList(Model.CustomerList, "ID", "CustomerName"), "Select Customer", new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-sm-12 form-group">
-                        @Html.LabelFor(model => model.ProductList, htmlAttributes: new { @class = "control-label" })
+                        <label>Product</label>
                         @Html.DropDownListFor(model => model.ProductID, new SelectList(Model.ProductList, "ID", "ProductName"), "Select Product", new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.ProductID, "", new { @class = "text-danger" })
                     </div>
@@ -46,12 +46,12 @@
             </form>
         </div>
     </div>
-    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script>
-        
+
         $(document).ready(function () {
             $("#btnAction").on("click", function () {
-                
                 const CustomerProductMappingForm = $("#CustomerProductMappingForm");
                 if (CustomerProductMappingForm.valid()) {
                     SaveCustomerProductMappingDetails(CustomerProductMappingForm.serialize(), onSuccess);
@@ -59,7 +59,6 @@
             })
 
             $("#btnUpdate").on("click", function () {
-                
                 const CustomerProductMappingForm = $("#CustomerProductMappingForm");
                 const id = $("#CustomerProductMapping-id").val();
                 if (CustomerProductMappingForm.valid()) {

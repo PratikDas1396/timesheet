@@ -15,8 +15,8 @@ namespace db.timesheet.com {
         public DbSet<Account> Account { get; set; }
         public DbSet<ErrorLog> ErrorLog { get; set; }
 
-        public TimeSheetDBContext(): base("TimeSheetDB") {
-            //Database.SetInitializer(new DataSeeder());
+        public TimeSheetDBContext(): base("TimeSheetApp") {
+            Database.SetInitializer(new DataSeeder());
         }
       
         protected override void OnModelCreating(DbModelBuilder modelBuilder) {

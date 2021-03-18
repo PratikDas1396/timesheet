@@ -15,29 +15,33 @@
                 <table class="dataTable table table-striped custom-datatables" id="Activitylist">
                     <thead>
                         <tr>
+
                             <th>
-                                @Html.DisplayNameFor(model => model.Department)
+                                Activity Code
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CustomerProductMapping)
+                                Activity Name
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.ActivityCode)
+                                Department
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.ActivityName)
+                                Customer
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CreatedBy)
+                                Product
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CreatedDtim)
+                                Created By
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.UpdatedBy)
+                                Created Date Time
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.UpdatedDtim)
+                                Updated By
+                            </th>
+                            <th>
+                                Updated Date Time
                             </th>
                             <th>
                             </th>
@@ -46,44 +50,47 @@
                     @if (Model == null || Model?.Count() == 0) {
                         <tbody>
                             <tr>
-                                <td colspan="7"> No Record Found </td>
+                                <td colspan="10"> No Record Found </td>
                             </tr>
                         </tbody>
                     }
                     else {
                         <tbody>
                             @foreach (var item in Model) {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Department.DepartmentName)
-                                    </td>
-                                    <td>
-                                        @Html.Label(item.CustomerProductMapping.Customer.CustomerName + " - " + item.CustomerProductMapping.Product.ProductName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ActivityCode)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ActivityName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.CreatedBy)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.CreatedDtim)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.UpdatedBy)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.UpdatedDtim)
-                                    </td>
-                                    <td>
-                                        <a href="javascript:void(0)" id="btnEditActivity" onclick="EditActivity('@item.ID')" data-id="@item.ID">
-                                            <i class="fa fa-pen cursor-pointer" title="edit"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ActivityCode)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ActivityName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Department.DepartmentName)
+                                </td>
+                                <td>
+                                    @Html.Label(item.CustomerProductMapping.Customer.CustomerName)
+                                </td>
+                                <td>
+                                    @Html.Label(item.CustomerProductMapping.Product.ProductName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreatedBy)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreatedDtim)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UpdatedBy)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UpdatedDtim)
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0)" id="btnEditActivity" onclick="EditActivity('@item.ID')" data-id="@item.ID">
+                                        <i class="fa fa-pen cursor-pointer" title="edit"></i>
+                                    </a>
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     }
@@ -95,9 +102,7 @@
 
 <script>
     $(document).ready(function () {
-        $('.custom-datatables').DataTable({
-            responsive: true
-        });
+       
 
         $("#btnAddActivity").off("click");
         $("#btnEditActivity").off("click");
@@ -112,6 +117,9 @@
             OpenGlobalPopup(editUrl)
         })*@
 
+        $('.custom-datatables').DataTable({
+            responsive: true
+        });
     })
 
     function EditActivity(id) {

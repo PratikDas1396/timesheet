@@ -1,21 +1,15 @@
-﻿namespace db.timesheet.com.Migrations
-{
+﻿namespace db.timesheet.com.Migrations {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<db.timesheet.com.TimeSheetDBContext>
-    {
-        public Configuration()
-        {
+    internal sealed class Configuration : DbMigrationsConfiguration<db.timesheet.com.TimeSheetDBContext> {
+        public Configuration() {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(db.timesheet.com.TimeSheetDBContext context)
-        {
-
-
+        protected override void Seed(db.timesheet.com.TimeSheetDBContext context) {
             var DepartmentID = Guid.NewGuid();
             var DesignationID = Guid.NewGuid();
 
@@ -38,23 +32,6 @@
                 CreatedDtim = DateTime.Now
             });
 
-            //context.Customer.Add(new Customer() {
-            //    ID = CustomerID,
-            //    CustomerCode = "RGIC",
-            //    CustomerName = "Reliance General Health Insurance Pvt. Ltd.",
-            //    CreatedBy = "System",
-            //    CreatedDtim = DateTime.Now
-            //});
-
-            //context.Product.Add(new Product() {
-            //    ID = ProductID,
-            //    ProductCode = "TS",
-            //    ProductName = "TimeSheet Application",
-            //    CreatedBy = "System",
-            //    CreatedDtim = DateTime.Now
-            //});
-
-
             context.Account.Add(new Account() {
                 ID = Guid.NewGuid(),
                 UserID = "admin",
@@ -68,8 +45,6 @@
                 CreatedDtim = DateTime.Now
             });
 
-            //context.SaveChanges();
-            base.Seed(context);
         }
     }
 }

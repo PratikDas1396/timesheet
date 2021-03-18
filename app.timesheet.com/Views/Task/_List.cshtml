@@ -16,22 +16,22 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.TaskCode)
+                                Task Code
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.TaskDescription)
+                                Task Description
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CreatedBy)
+                                Created By
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CreatedDtim)
+                                Created Date Time
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.UpdatedBy)
+                                Updated By
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.UpdatedDtim)
+                                Updated Date Time
                             </th>
                             <th>
                             </th>
@@ -83,7 +83,6 @@
 
 <script>
     $(document).ready(function () {
-        $('.custom-datatables').DataTable();
 
         $("#btnAddTask").off("click");
         $("#btnEditTask").off("click");
@@ -91,6 +90,8 @@
         $("#btnAddEntity").on('click', function () {
             OpenGlobalPopup("@Url.Content("~/Task/Add")")
         })
+        $('.custom-datatables').DataTable();
+
     })
 
     function EditTask(id) {

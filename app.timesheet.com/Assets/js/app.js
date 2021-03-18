@@ -53,7 +53,7 @@ function SaveCustomerDetails(data, callback) {
     const model = ConvertURIToJson(data);
     $.ajax({
         type: "POST",
-        url: "Customer/Save",
+        url: "Save",
         contentType: "application/json; charset=utf-8",
         datatype: "json",
         data: JSON.stringify(model),
@@ -71,7 +71,7 @@ function UpdateCustomerDetails(ID, data, callback) {
     model["ID"] = ID;
     $.ajax({
         type: "POST",
-        url: "Customer/Update",
+        url: "Update",
         contentType: "application/json; charset=utf-8",
         datatype: "json",
         data: JSON.stringify(model),
@@ -89,7 +89,7 @@ function SaveProductDetails(data, callback) {
     const model = ConvertURIToJson(data);
     $.ajax({
         type: "POST",
-        url: "Product/Save",
+        url: "Save",
         contentType: "application/json; charset=utf-8",
         datatype: "json",
         data: JSON.stringify(model),
@@ -108,7 +108,7 @@ function UpdateProductDetails(ID, data, callback) {
     model["ID"] = ID;
     $.ajax({
         type: "POST",
-        url: "Product/Update",
+        url: "Update",
         contentType: "application/json; charset=utf-8",
         datatype: "json",
         data: JSON.stringify(model),
@@ -127,7 +127,7 @@ function SaveDepartmentDetails(data, callback) {
     const model = ConvertURIToJson(data);
     $.ajax({
         type: "POST",
-        url: "Department/Save",
+        url: "Save",
         contentType: "application/json; charset=utf-8",
         datatype: "json",
         data: JSON.stringify(model),
@@ -145,7 +145,7 @@ function UpdateDepartmentDetails(ID, data, callback) {
     model["ID"] = ID;
     $.ajax({
         type: "POST",
-        url: "Department/Update",
+        url: "Update",
         contentType: "application/json; charset=utf-8",
         datatype: "json",
         data: JSON.stringify(model),
@@ -163,7 +163,7 @@ function SaveDesignationDetails(data, callback) {
     const model = ConvertURIToJson(data);
     $.ajax({
         type: "POST",
-        url: "Designation/Save",
+        url: "Save",
         contentType: "application/json; charset=utf-8",
         datatype: "json",
         data: JSON.stringify(model),
@@ -181,7 +181,7 @@ function UpdateDesignationDetails(ID, data, callback) {
     model["ID"] = ID;
     $.ajax({
         type: "POST",
-        url: "Designation/Update",
+        url: "Update",
         contentType: "application/json; charset=utf-8",
         datatype: "json",
         data: JSON.stringify(model),
@@ -201,7 +201,7 @@ function SaveCustomerProductMappingDetails(data, callback) {
     const model = ConvertURIToJson(data);
     $.ajax({
         type: "POST",
-        url: "CustomerProductMapping/Save",
+        url: "Save",
         contentType: "application/json; charset=utf-8",
         datatype: "json",
         data: JSON.stringify(model),
@@ -220,7 +220,7 @@ function UpdateCustomerProductMappingDetails(ID, data, callback) {
     model["ID"] = ID;
     $.ajax({
         type: "POST",
-        url: "CustomerProductMapping/Update",
+        url: "Update",
         contentType: "application/json; charset=utf-8",
         datatype: "json",
         data: JSON.stringify(model),
@@ -239,7 +239,7 @@ function SaveTaskDetails(data, callback) {
     const model = ConvertURIToJson(data);
     $.ajax({
         type: "POST",
-        url: "Task/Save",
+        url: "Save",
         contentType: "application/json; charset=utf-8",
         datatype: "json",
         data: JSON.stringify(model),
@@ -257,7 +257,7 @@ function UpdateTaskDetails(ID, data, callback) {
     model["ID"] = ID;
     $.ajax({
         type: "POST",
-        url: "Task/Update",
+        url: "Update",
         contentType: "application/json; charset=utf-8",
         datatype: "json",
         data: JSON.stringify(model),
@@ -275,7 +275,7 @@ function SaveActivityDetails(data, callback) {
     const model = ConvertURIToJson(data);
     $.ajax({
         type: "POST",
-        url: "Activity/Save",
+        url: "Save",
         contentType: "application/json; charset=utf-8",
         datatype: "json",
         data: JSON.stringify(model),
@@ -293,7 +293,7 @@ function UpdateActivityDetails(ID, data, callback) {
     model["ID"] = ID;
     $.ajax({
         type: "POST",
-        url: "Activity/Update",
+        url: "Update",
         contentType: "application/json; charset=utf-8",
         datatype: "json",
         data: JSON.stringify(model),
@@ -311,7 +311,7 @@ function SaveAccountDetails(data, callback) {
     const model = ConvertURIToJson(data);
     $.ajax({
         type: "POST",
-        url: "Account/Save",
+        url: "Save",
         contentType: "application/json; charset=utf-8",
         datatype: "json",
         data: JSON.stringify(model),
@@ -329,7 +329,7 @@ function UpdateAccountDetails(ID, data, callback) {
     model["ID"] = ID;
     $.ajax({
         type: "POST",
-        url: "Account/Update",
+        url: "Update",
         contentType: "application/json; charset=utf-8",
         datatype: "json",
         data: JSON.stringify(model),
@@ -347,7 +347,7 @@ function SaveTimeSheetDetails(data, callback) {
     const model = ConvertURIToJson(data);
     $.ajax({
         type: "POST",
-        url: "TimeSheet/Save",
+        url: "Save",
         contentType: "application/json; charset=utf-8",
         datatype: "json",
         data: JSON.stringify(model),
@@ -365,7 +365,7 @@ function Authenticate(data, callback) {
     const model = ConvertURIToJson(data);
     $.ajax({
         type: "POST",
-        url: "Account/Authenticate",
+        url: "Authenticate",
         contentType: "application/json; charset=utf-8",
         datatype: "json",
         data: JSON.stringify(model),

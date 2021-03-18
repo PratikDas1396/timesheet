@@ -14,9 +14,6 @@
     <title>Sign In</title>
 </head>
 <body>
-    @*@using (Html.BeginForm("Authenticate", "Account", FormMethod.Post)) {
-        @Html.AntiForgeryToken();*@
-
     <main class="content d-flex p-0">
         <div class="container d-flex flex-column">
             <div class="row h-100">
@@ -73,9 +70,9 @@
             </div>
         </div>
     </main>
-    @*}*@
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery-3.5.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script src="~/Assets/plugins/notyf/notyf.min.js"></script>
 
     <script>

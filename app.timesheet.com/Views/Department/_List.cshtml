@@ -16,22 +16,22 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.DepartmentCode)
+                                Department Code
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.DepartmentName)
+                                Department Name
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CreatedBy)
+                                Created By
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CreatedDtim)
+                                Created Date Time
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.UpdatedBy)
+                                Updated By
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.UpdatedDtim)
+                                Updated Date Time
                             </th>
                             <th>
                             </th>
@@ -83,7 +83,6 @@
 
 <script>
     $(document).ready(function () {
-        $('.custom-datatables').DataTable();
 
         $("#btnAddDepartment").off("click");
         $("#btnEditDepartment").off("click");
@@ -97,6 +96,7 @@
             const editUrl = "@Url.Content("~/Department/Update")"  + "/" + id;
             OpenGlobalPopup(editUrl)
         })*@
+        $('.custom-datatables').DataTable();
 
     })
 

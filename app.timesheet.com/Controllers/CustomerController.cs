@@ -73,7 +73,7 @@ namespace app.timesheet.com.Controllers {
 
         public ActionResult List() {
             try {
-                return PartialView("_List", PartialView("_List", repository.Customers.GetAll().ToList()));
+                return PartialView("_List", repository.Customers.GetAll().ToList());
             }
             catch (Exception ex) {
                 repository.Exception.Log(ex, "ActivityController", "List", HttpContext.User.Identity.Name);

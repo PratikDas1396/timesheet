@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace db.timesheet.com {
 
-    public class DataSeeder: DropCreateDatabaseAlways<TimeSheetDBContext> {
+    public class DataSeeder: CreateDatabaseIfNotExists<TimeSheetDBContext> {
 
         protected override void Seed(TimeSheetDBContext context) {
 

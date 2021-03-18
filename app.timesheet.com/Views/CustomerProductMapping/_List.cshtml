@@ -25,13 +25,13 @@
                                 Created By
                             </th>
                             <th>
-                                Created Date
+                                Created Date Time
                             </th>
                             <th>
                                 Updated By
                             </th>
                             <th>
-                                Updated Date
+                                Updated Date Time
                             </th>
                             <th>
                             </th>
@@ -83,7 +83,6 @@
 
 <script>
     $(document).ready(function () {
-        $('.custom-datatables').DataTable();
 
         $("#btnAddMapping").off("click");
         $("#btnEditMapping").off("click");
@@ -97,7 +96,7 @@
             const editUrl = "@Url.Content("~/Customer/Update")"  + "/" + id;
             OpenGlobalPopup(editUrl)
         })*@
-
+        $('.custom-datatables').DataTable();
     })
 
     function EditCustomer(id) {

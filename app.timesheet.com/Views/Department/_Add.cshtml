@@ -20,12 +20,12 @@
                 <div class="row">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="col-sm-12 form-group">
-                        @Html.LabelFor(model => model.DepartmentCode, htmlAttributes: new { @class = "control-label" })
+                        <label>Department Code</label>
                         @Html.EditorFor(model => model.DepartmentCode, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
                         @Html.ValidationMessageFor(model => model.DepartmentCode, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-sm-12 form-group">
-                        @Html.LabelFor(model => model.DepartmentName, htmlAttributes: new { @class = "control-label" })
+                        <label>Department Name</label>
                         @Html.EditorFor(model => model.DepartmentName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
                         @Html.ValidationMessageFor(model => model.DepartmentName, "", new { @class = "text-danger" })
                     </div>
@@ -45,9 +45,10 @@
             </form>
         </div>
     </div>
-    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script>
-        
+
         $(document).ready(function () {
             $("#btnAction").on("click", function () {
                 const DepartmentForm = $("#DepartmentForm");
